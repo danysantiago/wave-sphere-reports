@@ -1,0 +1,149 @@
+\section{Specifications}
+This section contains the requirements and technical specifications for the proposed capsules.  
+
+\subsection{Requirements and Features}
+\begin{enumerate}
+\item The capsules must have a spherical geometry and have a symmetric mass distribution along an axis
+
+\item The spheres must be compact.  Their diameter must be between the ideal 7.5 cm and 10 cm.
+
+\item The spheres must be able to measure their acceleration and orientation as it changes with the motion of the waves to 9 degrees of freedom.
+
+\item The spheres must be able to take samples at a frequency of at least 256 Hz for a sampling window of 30 seconds.
+
+\item The spheres must be able to broadcast their location to a base station after they have finished logging data and have resurfaced.
+
+\item The spheres must be able to transfer their data wirelessly so that they do not have to be opened and risk water damage.
+
+\item The spheres must be able to operate on batteries for a full day on the field, which might involve at most 20 throws a day, each throw lasting between 10 and 30 minutes.
+
+\item The spheres must be shock resistant and water proof.
+
+\item The spheres must be powered on and off wirelessly from the base station and should not require that the capsules be opened.
+
+\item The spheres must have a flashing LED in order to aid locating them at night.
+\end{enumerate}
+
+\subsection{Limitations}
+\begin{enumerate}
+\item The spheres operate on batteries, which means that a team cannot stay at sea for an indefinite amount of time without having replacement batteries.
+
+\item There is a limited range in which the system can communicate with the base station. The system must have resurfaced and be close enough to the base station in order to transfer the acquired data.
+
+\item When the system is submerged it can not be tracked by GPS.
+
+\end{enumerate}
+
+\subsection{Hardware Requirements}
+\begin{enumerate}
+ 
+\item Global Positioning System Module
+\begin{itemize}
+\item A module that will be able to locate the spheres to within 3 meters after an experiment is performed and concluded.  
+\end{itemize}
+
+\item  XBee Module
+\begin{itemize}
+\item The XBee module will be used to communicate with the base station and allow the transfer of data from the spheres to the base station.
+\end{itemize}
+
+\item  Triaxial Accelerometer Module
+\begin{itemize}
+\item Will be used to measure the acceleration of the sphere while it is being carried by the waves.  Must be capable of measuring a range of up to +/-250g.
+\end{itemize}
+
+\item Triaxial Gyroscope Module
+\begin{itemize}
+\item Will be used to determine the system's orientation while it is being carried by the wave.   
+\end{itemize}
+
+\item Triaxial Magnetic Field Sensor
+\begin{itemize}
+\item The magnetic field sensor, in conjunction with the gyroscope and accelerometer completes the 9 degrees of freedom required in the system.
+\end{itemize}
+
+\item  Real-Time Clock
+\begin{itemize}
+\item The Real-Time clock will be used to precisely track and record the time at which sample data is taken in order to match the measurements taken by different spheres and be able to analyze the data conjointly.
+\end{itemize}
+
+\item  microSD Card
+\begin{itemize}
+\item The microSD card will act as mass storage in order to save the measurements taken during an experiment.
+\end{itemize}
+
+%\item  Energy Harvesting System
+%\begin{itemize}
+%\item The energy harvesting system will help power the system.
+%\end{itemize}
+
+\item  Indicator Lights
+\begin{itemize}
+\item Will be used to indicate the transfer and battery status as well as to aid the location of the spheres at night.
+\end{itemize}
+
+\item  Light Sensor
+\begin{itemize}
+\item A light sensor is needed so that the flashing LED that will help locate the spheres will only turn on at night.
+\end{itemize}
+
+
+\item  Analog to Digital Converter (ADC)
+\begin{itemize}
+\item An ADC of at least 12 bits is needed in order to convert the analog output of the accelerometer into digital values that can be read by the microprocessor.
+\end{itemize}
+
+\end{enumerate}
+
+\subsection{Software Requirements}
+\begin{enumerate}
+\item Sampling Mode
+	\begin{itemize}
+		\item This mode will enable the spheres to take samples from its sensors for a sampling window of at least 30 seconds.  It will also log the data into the mass storage so that it can be retrieved later.
+	\end{itemize}
+	
+\item Locating Mode
+	\begin{itemize}
+		\item After the sampling is complete, the sphere should enter this mode in order to transmit its current location to the base station.
+	\end{itemize}
+
+\item Transfer Mode
+	\begin{itemize}
+		\item The spheres should have a mode that allows them to wirelessly transfer the acquired data to the base station.				\end{itemize}
+			
+\item Low powered or Sleep mode
+	\begin{itemize}
+		\item This mode will be entered when the system is not taking samples, transferring data or transmitting its location.  All the components should enter a low power mode if available
+	\end{itemize}
+
+\item LED controller
+	\begin{itemize}
+		\item The software must have an interface with the status and flasher LEDs in order to turn them on or off depending on the status of the capsule.
+	\end{itemize}
+	
+\item Out of Memory Alert
+	\begin{itemize}
+		\item Since data persistency is very important, the software must have a means of raising an alert, through a combination of flashing LEDs or through the base station, if there is not enough memory on the mass storage to perform another experiment.  This is to prevent a current experiment from overriding the data acquired during a previous experiment.
+	\end{itemize}
+
+\end{enumerate}
+
+\subsection{Essential Components}
+\begin{enumerate}
+\item Communications
+	\begin{itemize}
+	\item The system will communicate wirelessly with a base station. Data collected in the system will be transferred from the system to the base station while the base station communicates with a computer through a USB interface.
+	\end{itemize}
+\item User Interface
+	\begin{itemize}
+	\item The system will have an LED that serves as a status indicator.  In addition to this, the computer attached to the base station will have a graphical user interface that will facilitate data transfer between the spheres and the computer.
+	\end{itemize}
+\item Control Scheme
+	\begin{itemize}
+	\item The system will control the sensors that will collect all experiment data. It must also control the power mode of all the attached modules during the different stages of an experiment. Whenever a peripheral is not needed, it should enter a low power state so as to prolong battery life.  The wireless modules will also need to be controlled in order to transfer data when requested.
+	\end{itemize}
+\item Microprocessor-based
+	\begin{itemize}
+	\item The need of a microprocessor is justified by the use of multiple sensors, the need to synchronize the date acquired from all the sensors to the same point in time, the need to compress data in order to perform various experiments without the need to empty the mass storage and the need to transfer data from a mass storage to a base station upon request.
+	\end{itemize}
+\end{enumerate}

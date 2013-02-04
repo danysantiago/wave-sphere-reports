@@ -1,0 +1,48 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{res/reportStyle}
+
+
+\begin{document}
+
+
+\input{res/titlePage.tex}
+
+\pagenumbering{roman}
+
+\input{sec/abstract.tex}
+
+  \tableofcontents
+
+
+\newpage
+\setlength{\parskip}{12pt}
+\pagenumbering{arabic}
+\input{sec/introduction.tex}
+\input{sec/blockdiagram.tex}
+\input{sec/requirements.tex}
+\input{sec/marketDescription.tex} \clearpage
+\input{sec/designCriteria.tex}
+\input{sec/projectTimetable.tex}
+\input{sec/globalSystemOverview.tex}
+\input{sec/uiSystemConception.tex}
+\input{sec/expertOpinion.tex}
+
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+\newpage
+\appendix
+
+\appendixpage
+\addappheadtotoc
+
+\input{sec/workDistribution.tex} \newpage
+\input{sec/projectJournal.tex} \newpage
+\section{Detailed Gantt Chart}
+\label{sec:detailedGantt}
+Due to its complexity, the Gantt chart had to be separated in order to include it in this report. The complete Gantt Chart, which can be zoomed into in order to read it more easily, can be found at the following web address: ~\url{http://tinyurl.com/Gantt-WaveSphere}
+
+	\includegraphics[width=\textwidth]{img/GanttPage1}
+	\includegraphics[width=\textwidth]{img/GanttPage2}
+
+\end{document}
