@@ -30,4 +30,4 @@
 *.vrb
 *.xdy
 *.tdo
-*report.pdf
+*/report.pdf
