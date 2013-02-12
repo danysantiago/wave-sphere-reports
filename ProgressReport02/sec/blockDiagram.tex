@@ -10,7 +10,7 @@ Figure~\ref{fig:blockDiagram} shows a revised system block diagram.  It contains
 \end{figure}
 
 \subsection{RF Wake-Up Receiver}
-The RF Wake-Up receiver is a dedicated component that is utilized wake the MCU from low power mode by issuing an interrupt. The receiver consumes a very small amount of power while listening for the wake-up signal. This enables the device to power on without the need of an external physical button. It also enables the device to operate in Shutdown Mode, where nearly no power is consumed while waiting for user interaction.
+The RF Wake-Up receiver is a dedicated component that is utilized to wake the MCU from low power mode by issuing an interrupt. The amplitude shifted key (ASK) receiver consumes a very small amount of power while listening for a wake-up signal. This enables the device to be powered on without the need of an external physical button. It also enables the device to operate in Shutdown Mode, where nearly no power is consumed while waiting for user interaction. The idea is to never completely power down the device, but instead leave it in Shutdown Mode which can then be waked up using a low frequency radio identification tag (RFID).
 
 \subsection{Battery Charging and Power Management}
 \label{sec:chargingMethods}

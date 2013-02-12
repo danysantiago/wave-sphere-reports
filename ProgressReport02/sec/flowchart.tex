@@ -19,7 +19,9 @@ The boot sequence occurs when the device is powered on from a cold power down. T
 \end{figure}
 
 \subsection{Shutdown Mode}
+
 On shutdown mode the device is in deep sleep, the MCU is in shutdown mode and all components except one are turned off. The single component that will be powered on is the RF Wake-up receiver. The low power amplitude shifted key (ASK) receiver will be operating in listening mode. On this mode the receiver is capable of detecting the wake-up carrier while consuming very little power. When the carrier is detected the receiver sends an interrupt signal to the MCU, waking it up from its low power mode.  The system then proceeds to enter Stand-By Mode.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{img/ShutdownMode}
