@@ -9,6 +9,9 @@ Figure~\ref{fig:blockDiagram} shows a revised system block diagram.  It contains
 	\caption{Revised Block Diagram \label{fig:blockDiagram}}
 \end{figure}
 
+\subsection{RF Wake-Up Receiver}
+The RF Wake-Up receiver is a dedicated component that is utilized to interrupt and wake the MCU from low power mode while consuming very low power listening for the wake-up signal. This enables the device to power on without the need of an external physical button. It also enables the device to operate in Shutdown Mode, where very little power is being consumed waiting for user interaction.
+
 \subsection{Battery Charging Methods}
 Two different methods are being considered for charging the sphere's battery.
 \subsubsection{USB Charger}
