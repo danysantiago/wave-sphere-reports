@@ -1,0 +1,27 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{res/reportStyle}
+\usepackage{rotating}
+
+\begin{document}
+
+
+\input{res/titlePage.tex}
+
+\pagenumbering{roman}
+
+\tableofcontents \newpage
+
+\pagenumbering{arabic}
+
+%\input{sec/blockDiagram.tex}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+\newpage
+\appendix
+\appendixpage
+\addappheadtotoc
+%\input{sec/workDistribution.tex}
+
+
+\end{document}
