@@ -1,5 +1,7 @@
 \section{Software Plan}
 
+This section contains the pseudocode of the embedded software of the system.  Algorithm 1 contains the Main function of the system.  After the Main, Interrupt Service Routines (ISRs) and Sub-Routines are found in order of appearance. 
+
 \begin{algorithm}
 \SetAlgoNoLine
 Initialize GPIO Ports\;
@@ -7,6 +9,9 @@ Initialize Memory Variables\;
 Enable GIE\;
 \While{true}{
 	Disable All Interrupts\;
+	Enable RF Interrupt\;
+	Shutdown All Modules\;
+	Power on RF module\;
 	Activate Low Power Mode\;
 	\While{Shutdown Flag Cleared}{
 	\uIf{Diagnostic Flag Set}{
@@ -25,7 +30,7 @@ Enable GIE\;
 	}
 	}
 }
-\caption{Main Program}
+\caption{Main}
 \end{algorithm}
 
 \begin{algorithm}
