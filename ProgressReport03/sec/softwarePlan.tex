@@ -1,3 +1,174 @@
 \section{Software Plan}
 
-Main:
+This section contains the pseudocode of the embedded software of the system.  Algorithm 1 contains the Main function of the system.  After the Main, Interrupt Service Routines (ISRs) and Sub-Routines are found in order of appearance. 
+
+\begin{algorithm}
+\SetAlgoNoLine
+Initialize GPIO Ports\;
+Initialize Memory Variables\;
+Enable GIE\;
+\While{true}{
+	Disable All Interrupts\;
+	Enable RF Interrupt\;
+	Shutdown All Modules\;
+	Power on RF module\;
+	Activate Low Power Mode\;
+	\While{Shutdown Flag Cleared}{
+	\uIf{Diagnostic Flag Set}{
+		Execute Diagnostic Service\;}
+	\uElseIf{Retrieval Flag Set}{
+		Clear Retrieval Flag\;
+		Execute Retrieval Service\;
+	}
+	\uElseIf{Sampling Flag Set}{
+		Execute Sampling Service\;
+		Execute Location Service\;
+	}
+	\uElseIf{Status Flag Set}{
+		Clear Status Flag\;
+		Execute Status Service\;
+	}
+	}
+}
+\caption{Main}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Power On Xbee Module\;
+Establish Connection\;
+Power Off RF\;
+Enable Xbee Interrupt\;
+Disable RF Interrupt\;
+Return from Interrupt\;
+\caption{RF ISR}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Read Data From Xbee Buffer\;
+\uIf{Data corresponds to Clear Diagnostic Mode}{
+Clear Diagnostic Mode Flag\;
+}\uElseIf{Data corresponds to Diagnostic Mode}{
+Set Diagnostic Mode Flag\;
+}
+\uElseIf{Data corresponds to Retrieval Mode}{
+Set Retrieval Mode Flag\;
+}
+\uElseIf{Data corresponds to Samplíng Mode}{
+	Set Sampling Mode Flag\
+}
+\uElseIf{Data corresponds to Status Mode}{
+Set Status Mode Flag\;
+}
+\uElseIf{Data corresponds to Shutdown Mode}{
+Set Shutdown Mode Flag\;
+}
+Modify LPM bit in stack stored SR to take the CPU into Active Mode\;
+Return from Interrupt\;
+\caption{Xbee ISR}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Power Up All Components\;
+\Repeat{Diagnostic Flag Cleared}{
+	Take measurement from Accelerometer\;
+	Take measurement from Gyroscope\;
+	Take measurement from Magnetometer\;
+	Get location from GPS\;
+	Get file system information from SD Card\;
+	Get Light Sensor Output\;
+	Toggle LED\;
+	Get measurement from Power Meter\;
+	Get Xbee Module Signal\;
+	Send Measurements to Base Station\;
+}
+Return\;
+\caption{Diagnostic Event Service}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Get file system information from SD Card\;
+Send file system information to base station\;
+Send all data to base station\;
+Erase data from SD Card
+Return\;
+\caption{Retrieval Event Service}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Activate Xbee Module Low Power Mode\;
+Power on Accelerometer\;
+Power on Gyroscope\;
+Power on Magnetometer\;
+Clear Sampling Mode Flag\;
+Set Sampling Mode Timer\;
+\While{SamplingTimeOver Flag Cleared}{
+	Set Sampling Frequency Timer\;
+	Clear Sample Frequency Flag\;
+	Get Accelerometer measurement\;
+	Get Gyroscope measurement\;
+	Get Magnetometer measurement\;
+	Get Timestamp\;
+	Write to SD Card\;
+	\While{SampleFrequencyFlag Cleared AND SamplingTimeOver Flag Cleared}{
+	Do Nothing\;
+	}
+}
+Power Down Accelerometer\;
+Power Down Gyroscope\;
+Power Down Magnetometer\;
+Return\;
+\caption{Sampling Event Service}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Set Sampling Mode Flag\;
+Return from Interrupt\;
+\caption{Sampling Mode Timer ISR}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Set Sampling Frequency Flag\;
+Return from Interrupt\''
+\caption{Sampling Frequency Time ISR}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Power On GPS\;
+Power On Xbee\;
+Enable Light Sensor Interrupt\;
+Establish Zigbee Connection\;
+\Repeat{Sampling/Location is Cleared}{
+	Get GPS Location\;
+	Send Location Data\;
+}
+Shut Down GPS\;
+Turn Off LED\;
+Return\;
+\caption{Location Event Service}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Turn On LED\;
+Disable Light Sensor Interrupt\;
+Return from Interrupt\;
+\caption{Light Sensor ISR}
+\end{algorithm}
+
+\begin{algorithm}
+\SetAlgoNoLine
+Sync System Time\;
+Get SD Free Space Information\;
+Send SD Free Space Information To Base Station\;
+Get Battery Level\;
+Send Battery Level\;
+\caption{Status Event Service}
+\end{algorithm}
