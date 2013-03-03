@@ -143,24 +143,14 @@ Return from Interrupt\;
 \SetAlgoNoLine
 Power On GPS\;
 Power On Xbee\;
-Enable Light Sensor Interrupt\;
 Establish Zigbee Connection\;
-\Repeat{Sampling/Location is Cleared}{
+\Repeat{Sampling/Location Flag is Cleared}{
 	Get GPS Location\;
 	Send Location Data\;
 }
 Shut Down GPS\;
-Turn Off LED\;
 Return\;
 \caption{Location Event Service}
-\end{algorithm}
-
-\begin{algorithm}
-\SetAlgoNoLine
-Turn On LED\;
-Disable Light Sensor Interrupt\;
-Return from Interrupt\;
-\caption{Light Sensor ISR}
 \end{algorithm}
 
 \begin{algorithm}

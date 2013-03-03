@@ -1,0 +1,33 @@
+\section{Timing Analysis}
+
+Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be 256Hz, there is complete compatibility between all components.  Two timers are needed.  The first timer will control the sample frequency for all the components.  In order to have 256Hz, an external crystal with frequency of 32,768Hz will be used.  The terminal count will be set to 128 and the prescaler to one.  The second timer will control the sampling time (30s).
+
+%    \begin{tabular}{|m{1in}|m{2.2in}|m{2.2in}|}
+\begin{table}[H]
+  \centering
+  \caption{Component Frequencies}
+    \begin{tabular}{|c|c|}
+    \hline
+    Component & Frequency \\
+    \hline \hline
+    MCU   & 1, 2.667, 3.5, 4, 5.333, 7, 8, 16 MHz \\ \hline
+    Crystal & 32,768 Hz \\ \hline
+    Accelerometer & Analog, ADC 200ksps, 1000Hz max bandwidth \\ \hline
+    Battery Gauge & I$^2$C, 10-100kHz and 400kHz \\ \hline
+    GPS   & UART, 9,600 baud (std), from 4,800 to 921,600 baud. 9,600 baud selected\\ \hline
+    Gyroscope & SPI, up to 10MHz \\ \hline
+    Magnetometer & I$^2$C, up to 100kHz std, 400kHz fast \\ \hline
+    RF Wakeup & SDI (SPI) - 2MHz \\ \hline
+    SD card & 0-25MHz std, up to 50Mhz max. \\ \hline
+    Xbee  & SPI, no specification \\ \hline
+    \end{tabular}
+  \label{tab:compFreq}
+\end{table}
+
+In order to make sure that the Real Time Clock (RTC) will be precise, the external crystal, with frequency of 32,768 will be used.
+
+%TODO determine error of baud rate in GPS
+
+%TODO Point-2-Point Analysis....
+
+
