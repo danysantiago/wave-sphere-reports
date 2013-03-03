@@ -1,10 +1,11 @@
 \section{Operating Charts}
 Operating charts describe the modes of operation and the flow of the system without much detail. Figure~\ref{fig:systemFlowchart} shows the system's main flowchart, which depicts how the device goes in and out of each of its operating modes.  A general but brief overview of the different modes of operation follows.
 
-%TODO write paragraph
-%When the system is powered up it performs its Boot Sequence, which includes initializing the MCU and all of its peripherals. Once the Boot Sequence has been completed the device will enter Shutdown Mode. In Shutdown Mode the system is operating with very low power and is also listening for a specific RF wake-up signal to further interact with the user. When the device receives the correct wake-up signal it will enter Stand-By Mode. On Stand-By Mode the device establishes a ZigBee connection with the base station. Once connected the user can then select the next operating mode through the proposed GUI. The available selectable operating modes are Diagnostic, Sampling and Data Retrieval modes. The system is not intended for a full power down, but it can occur if the battery is fully depleted, in this case when the device is powered back from such power down it will initialize its boot sequence. Further explanation of the operating modes can be found in each of the modes section.
+When the system is powered up it will perform an initialization sequence, which includes initializing all GPIO ports and memory variables. It will also enable global interrupts and the RF wakeup receiver interrupt while keeping all other interrupts disabled. It will also power down all other modules while keeping the RF wakeup receiver on.
+When the initialization sequence is finished, it will enter a very low power mode. This mode will be called shutdown mode. The system can be woken up by the RF wakeup receiver which will be listening for a specific signal from the user. When the system is interrupted from sleep by the RF wakeup receiver it will power on the XBee module, establish a Zigbee connection, and enable the Xbee interrupt. Also, the system will power off the RF wakeup receiver and disable its corresponding interrupt.
+Afterwards, the system will enter in another low power mode which will be referred to as standby mode. In this mode, the system will maintain an active Zigbee connection via the Xbee module. The Xbee module will be listening for specific signal from the base station. When it receives a signal, it will interrupt the MCU and set a flag corresponding to the signal that was received. The signal could be to enter either diagnostic, retrieval, sampling, status, or shutdown mode, or to exit diagnostic mode. The interrupt routine will then take the CPU to active mode, and the system will proceed to execute the service corresponding to the signal that was sent to the XBee module via the base station. After the service has finished executing, the system will return to standby mode where it will listen for more incoming commands.
 
-The following sections contain a more thorough explanation of each of the operating modes mentioned, along with a flowchart of its own to help explain what can be done in each one.
+The following sections contain a more thorough explanation of each of the operating modes mentioned, along with a flowchart of its own to help explain what can be done in each mode.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.8]{img/SystemFlowchart}
@@ -12,8 +13,7 @@ The following sections contain a more thorough explanation of each of the operat
 \end{figure}
 
 \subsection{Diagnostic Event Service}
-%TODO fix
-On Diagnostic Mode the device maintains communication to the base station and sends real-time information of the different components to the base station, the user can then observe and verify that all components are taking measurements and data can be retrieved through the XBee.
+In this service, which will be called Diagnostic Mode, the device maintains communication to the base station and sends real-time measurement information of the different components to the base station. The user can then observe and verify that all components are taking accurate measurements and that data can be retrieved through the XBee module. If the user decides to exit Diagnostic mode, he will do so by choosing the option at the base station, which will send the corresponding signal to the Xbee module and interrupt the MCU. The Diagnostic flag will be cleared by the interrupt routine, and will cause the return of the Diagnostic Event Service, shown below.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/DiagnosticEventService}
@@ -21,8 +21,7 @@ On Diagnostic Mode the device maintains communication to the base station and se
 \end{figure}
 
 \subsection{Retrieval Event Service}
-%TODO fix
-Retrieval Mode is the operation mode of the device in which the system transfers the data collected while in Sampling Mode from the SD Card to the base station. Data is transferred trough the established ZigBee connection and once all data has been transferred it is erased from the SD card.
+Retrieval Mode is the operation mode of the device in which the system transfers the data collected while in Sampling Mode. This data from the SD Card to the base station. Data is transferred trough the established ZigBee connection and once all data has been transferred it is erased from the SD card.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{img/RetrievalEventService}
@@ -31,8 +30,7 @@ Retrieval Mode is the operation mode of the device in which the system transfers
 
 
 \subsection{Sampling Event Service}
-%TODO fix
-On Sampling Mode the device captures data from the accelerometer, gyroscope and magnetometer. Data is captured for the duration of the previously specified time and data points are saved in the SD card, each with a time stamp from the time which they were captured.
+While in Sampling Mode the device captures data from the accelerometer, gyroscope and magnetometer. Data is captured for 30 seconds and data points are saved in the SD card, each with a time stamp from the time which they were captured. The data will be sampled at 256Hz. This frequency will be fulfilled by using a timer with a crystal oscillator.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/SamplingEventService}
@@ -40,8 +38,7 @@ On Sampling Mode the device captures data from the accelerometer, gyroscope and 
 \end{figure}
 
 \subsection{Location Event Service}
-%TODO fix
-On Locate Mode the user is trying find and retrieve the device. The system turns on the XBee Module and the GPS and turns off all other components. The system then proceeds to establishing a ZigBee connection to the base station and get a GPS lock. Once the device gets its location using the GPS Module it will then broadcast the location to the base station through the ZigBee connection. If the on-board light sensor determines that it is dark, i.e.\ an experiment is being conduted when there is little or no sunlight, then a strobe LED will be flashed so as to facilitate the retrieval of the device.
+On Locate Mode the user is trying find and retrieve the device. The system turns on the XBee Module and the GPS. The system then proceeds to establishing a ZigBee connection to the base station and get a GPS lock. Once the device gets its location using the GPS Module it will then broadcast the location to the base station through the ZigBee connection.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{img/LocationEventService}
@@ -49,8 +46,7 @@ On Locate Mode the user is trying find and retrieve the device. The system turns
 \end{figure}
 
 \subsection{Status Event Service}
-%TODO write explanation paragraph
-%On Status mode the system is conserving power with some components turned off while maintaining a ZigBee connection to the base station. At this point, the RTC in the MCU is updated with the current time of the base station. On this mode the system is waiting for user interaction, the device is connected to the base station and simple information is transmitted to the base station's user interface. The transmitted information is battery level and SD card space usage. The system is also waiting for the user to select the next operating mode via the graphical interface on the base station. The user can either test the device with Diagnostic Mode, retrieve its data with Retrieval Mode, or enter Sampling Mode and run an experiment. The components that are awake on this mode are the SD card module and the XBee module and the MCU.
+The status event service will send battery charge status and SD card information to the base station. The SD card information includes free space and file system information.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=1.0]{img/StatusEventService}
