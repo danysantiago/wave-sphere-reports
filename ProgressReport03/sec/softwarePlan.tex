@@ -55,7 +55,7 @@ Set Diagnostic Mode Flag\;
 \uElseIf{Data corresponds to Retrieval Mode}{
 Set Retrieval Mode Flag\;
 }
-\uElseIf{Data corresponds to Samplíng Mode}{
+\uElseIf{Data corresponds to Sampling Mode}{
 	Set Sampling Mode Flag\
 }
 \uElseIf{Data corresponds to Status Mode}{
@@ -114,9 +114,7 @@ Set Sampling Mode Timer\;
 	Get Magnetometer measurement\;
 	Get Timestamp\;
 	Write to SD Card\;
-	\While{SampleFrequencyFlag Cleared AND SamplingTimeOver Flag Cleared}{
-	Do Nothing\;
-	}
+	Activate Low Power Mode\;
 }
 Power Down Accelerometer\;
 Power Down Gyroscope\;
@@ -128,6 +126,7 @@ Return\;
 \begin{algorithm}
 \SetAlgoNoLine
 Set Sampling Mode Flag\;
+Modify LPM bit in stack stored SR to take the CPU into Active Mode\;
 Return from Interrupt\;
 \caption{Sampling Mode Timer ISR}
 \end{algorithm}
@@ -135,7 +134,8 @@ Return from Interrupt\;
 \begin{algorithm}
 \SetAlgoNoLine
 Set Sampling Frequency Flag\;
-Return from Interrupt\''
+Modify LPM bit in stack stored SR to take the CPU into Active Mode\;
+Return from Interrupt\;
 \caption{Sampling Frequency Time ISR}
 \end{algorithm}
 
