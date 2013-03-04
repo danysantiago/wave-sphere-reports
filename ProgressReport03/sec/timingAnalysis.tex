@@ -1,6 +1,10 @@
 \section{Timing Analysis}
+The timing analysis consists of three main parts: Timebases, Point-to-point communication, and analog considerations. The purpose of this analysis is to ensure that no signal is transmitted at a faster frequency than the one it's receiver can read.
 
-Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be 256Hz, there is complete compatibility between all components.  Two timers are needed.  The first timer will control the sample frequency for all the components.  In order to have 256Hz, an external crystal with frequency of 32,768Hz will be used.  The terminal count will be set to 128 and the prescaler to one.  The second timer will control the sampling time (30s).
+\subsection{Timebases}
+This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 256Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I2C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will communicating at a 9600 baud rate and tolerates a 10\% error.
+
+Two timers will be needed for sampling. The first timer will control the sample frequency for all the components.  In order to sample at an accurate frequency of 256Hz, an external crystal with a low frequency of 32.768kHz will be used. To achieve this, the crystal will be connected to one of the timers, and the terminal count will be set to 128 with a prescaler of one. The second timer will control the sampling time of 30 seconds. The prescaler of this timer will be set to 1 and the terminal count will be set to 32,768. 30 counts of the terminal register will produce the interrupt that will conclude the sampling mode.
 
 %    \begin{tabular}{|m{1in}|m{2.2in}|m{2.2in}|}
 \begin{table}[H]
@@ -24,10 +28,17 @@ Table \ref{tab:compFreq} shows the frequency specifications for the components. 
   \label{tab:compFreq}
 \end{table}
 
-In order to make sure that the Real Time Clock (RTC) will be precise, the external crystal, with frequency of 32,768 will be used.
+\subsection{Point-to-point communication}
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. These timing signals do not include forms of serial communication, including UART, SPI and I2C.
+
+
+
+\subsection{Analog considerations}
+There is only one analog component in the system, the ADXL377 accelerometer. Care must be taken to ensure that the sampling rate of the MCU's ADC can be set to twice the frequency of the analog signal. The ADXL377 can output data at 1000Hz, but this system requires it to be 500Hz. This means that the MCU's ADC must be capable of sampling at a rate of 1ksps. The MSP430FR5969's ADC is capable of sampling at 200ksps, which means that the accelerometer is also compatible with the MCU.
+
+A second consideration should be made when interfacing with an analog component: slew rate compatibility. There is no documented specification of the ADC's slew rate in the MSP430FR5969's datasheet, but the voltage range is specified to be from 0V to +Vcc. As long as the output values of the ADXL377 accelerometer are within the ADC's input range, slew rate will be unaccounted for.
 
 %TODO determine error of baud rate in GPS
 
-%TODO Point-2-Point Analysis....
 
 
