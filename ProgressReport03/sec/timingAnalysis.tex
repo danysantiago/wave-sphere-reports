@@ -32,7 +32,29 @@ The reason why a 38.400kHz crystal was chosen is because the GPS communicates th
 \end{table}%
 
 \subsection{Point-to-point communication}
-This section outlines the minimum requirements for timing signals of the devices connected through GPIO. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C.
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C.
+
+\begin{table}[H]
+  \centering
+  \caption{Timing Requirements}
+    \begin{tabular}{|c|c|}
+    \hline
+    Port  & Time Required \\
+    \hline \hline
+    RF\_WK (WAKE) & Not specified \\ \hline
+    RFWK\_CS (CS) & Needs to be high as long as data needs to be read. 65 clock cycles to calibrate \\ \hline
+    SD\_CS (CS) & Asserted 74 clock cycles \\ \hline
+    XB\_CS (SPI\_!SSEL) & Not specified \\ \hline
+    XB\_DR (!DTR/SLEEP) & Not specified \\ \hline
+    XB\_SLEEP (ON/!SLEEP) & Not specified \\ \hline
+    GYR\_CS (CS) & Setup time: 5ns, Hold time: 8ns \\ \hline
+    GYR\_DR (DRDY/INT2) & Interrupt: enabled until acknowledged by the MCU \\ \hline
+    GPS\_DR (DR\_INT) & Needs to be toggled by low-high-low with >10ms pulse length \\ \hline
+    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2 seconds during valid fix condition \\ \hline
+    MAG\_DR (DRDY) & interrupt: enabled when a new set of measurements are available \\ \hline
+    \end{tabular}%
+  \label{tab:timeReqs}%
+\end{table}%
 
 
 \subsection{Analog considerations}
