@@ -8,27 +8,28 @@ Two timers will be needed for sampling. The first timer will control the sample 
 
 The reason why a 38.400kHz crystal was chosen is because the GPS communicates through UART with a 9600 baud rate. If a standard 32.768kHz crystal is used instead, the frequency divider would be 3.4, which would produce an effective baud rate of 9637.65bps. This translates to a maximum error of 17.19\%, which is unacceptable to the GPS. This problem is solved by using a 38.400kHz crystal, which would produce an effective baud rate of 9600bps with 0.00\% error with a frequency divider of 4. The use of a 38.400kHz crystal will not affect real time keeping nor sampling rate, because a 256Hz signal can be obtained by counting 150 cycles of the crystal, and a second can be obtained by counting 38400, both of which fit into a 16bit timer compare register.
 
-%    \begin{tabular}{|m{1in}|m{2.2in}|m{2.2in}|}
 \begin{table}[H]
   \centering
-  \caption{Component Frequencies}
-    \begin{tabular}{|c|c|}
+  \caption{Components Frequencies}
+    \begin{tabular}{|c|c|c|}
     \hline
-    Component & Frequency \\
+    Component & Protocol & Frequency \\
     \hline \hline
-    MCU   & 1, 2.667, 3.5, 4, 5.333, 7, 8, 16 MHz \\ \hline
-    Crystal & 32,768 Hz \\ \hline
-    Accelerometer & Analog, ADC 200ksps, 1000Hz max bandwidth \\ \hline
-    Battery Gauge & I$^2$C, 10-100kHz and 400kHz \\ \hline
-    GPS   & UART, 9,600 baud (std), from 4,800 to 921,600 baud. 9,600 baud selected\\ \hline
-    Gyroscope & SPI, up to 10MHz \\ \hline
-    Magnetometer & I$^2$C, up to 100kHz std, 400kHz fast \\ \hline
-    RF Wakeup & SDI (SPI) - 2MHz \\ \hline
-    SD card & 0-25MHz std, up to 50Mhz max. \\ \hline
-    Xbee  & SPI, no specification \\ \hline
-    \end{tabular}
-  \label{tab:compFreq}
-\end{table}
+    MCU   & -     & 4, 8, or 16 MHz \\ \hline
+    Crystal & -     & 38.400kHz \\ \hline
+    ADC   & -     & 200ksps \\ \hline
+    Accelerometer & Analog & 500Hz \\ \hline
+    Battery Gauge & I$^2$C & 10-100kHz \\ \hline
+    Magnetometer & I$^2$C & 0-100kHz \\ \hline
+    Gyroscope & SPI   & 0-10MHz \\ \hline
+    RF Wakeup & SPI   & 0-2MHz \\ \hline
+    SD card & SPI   & 0-25MHz \\ \hline
+    Xbee  & SPI   & 0-5MHz \\ \hline
+    GPS   & UART  & 9,600 baud \\ \hline
+    USB-to-SD &       & 26, 19.2, 13, or 12 MHz \\ \hline
+    \end{tabular}%
+  \label{tab:compFreq}%
+\end{table}%
 
 \subsection{Point-to-point communication}
 This section outlines the minimum requirements for timing signals of the devices connected through GPIO. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C.
