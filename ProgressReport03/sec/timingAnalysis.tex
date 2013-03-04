@@ -1,8 +1,8 @@
 \section{Timing Analysis}
-The timing analysis consists of three main parts: Timebases, Point-to-point communication, and analog considerations. The purpose of this analysis is to ensure that no signal is transmitted at a faster frequency than the one it's receiver can read.
+The timing analysis consists of three main parts: Time bases, Point-to-point communication, and analog considerations. The purpose of this analysis is to ensure that no signal is transmitted at a faster frequency than the one it's receiver can read.
 
-\subsection{Timebases}
-This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 256Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I2C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will communicating at a 9600 baud rate and tolerates a 10\% error.
+\subsection{Time bases}
+This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 256Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I$^2$C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will communicating at a 9600 baud rate and tolerates a 10\% error.
 
 Two timers will be needed for sampling. The first timer will control the sample frequency for all the components.  In order to sample at an accurate frequency of 256Hz, an external crystal with a low frequency of 38.400kHz will be used. To achieve this, the crystal will be connected to one of the timers, and the terminal count will be set to 150 with a prescale divider of one. The second timer will control the sampling time of 30 seconds. The prescaler of this timer will be set to 1 and the terminal count will be set to 38,400. 30 counts of the terminal register will produce the interrupt that will conclude the sampling mode.
 
@@ -31,7 +31,7 @@ The reason why a 38.400kHz crystal was chosen is because the GPS communicates th
 \end{table}
 
 \subsection{Point-to-point communication}
-This section outlines the minimum requirements for timing signals of the devices connected through GPIO. These timing signals do not include forms of serial communication, including UART, SPI and I2C.
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C.
 
 
 
