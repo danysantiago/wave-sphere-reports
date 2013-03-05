@@ -13,7 +13,9 @@ The following sections contain a more thorough explanation of each of the operat
 \end{figure}
 
 \subsection{Diagnostic Event Service}
+
 In this service, which will be called Diagnostic Mode, the device maintains communication to the base station and sends real-time measurement information of the different components to the base station. The user can then observe and verify that all components are taking accurate measurements and that data can be retrieved through the XBee module. If the user decides to exit Diagnostic mode, he will do so by choosing the option at the base station, which will send the corresponding signal to the Xbee module and interrupt the MCU. The Diagnostic flag will be cleared by the interrupt routine, and will cause the return of the Diagnostic Event Service, shown below.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/DiagnosticEventService}
