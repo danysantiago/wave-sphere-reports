@@ -26,7 +26,6 @@ The reason why a 38.400kHz crystal was chosen is because the GPS communicates th
     SD card & SPI   & 0-25MHz \\ \hline
     Xbee  & SPI   & 0-5MHz \\ \hline
     GPS   & UART  & 9,600 baud \\ \hline
-    USB-to-SD &       & 26, 19.2, 13, or 12 MHz \\ \hline
     \end{tabular}%
   \label{tab:compFreq}%
 \end{table}%
@@ -41,17 +40,21 @@ This section outlines the minimum requirements for timing signals of the devices
     \hline
     Port  & Time Required \\
     \hline \hline
+    GPS\_DR (DR\_INT) & Needs to be toggled by low-high-low with >10ms pulse length \\ \hline
+    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2 seconds during valid fix condition \\ \hline
+    GYR\_CS (CS) & Setup time: 5ns, Hold time: 8ns \\ \hline
+    GYR\_DR (DRDY/INT2) & Interrupt: enabled until acknowledged by the MCU \\ \hline
+    MAG\_DR (DRDY) & Interrupt: enabled when a new set of measurements are available \\ \hline
     RF\_WK (WAKE) & Not specified \\ \hline
     RFWK\_CS (CS) & Needs to be high as long as data needs to be read. 65 clock cycles to calibrate \\ \hline
+    SD\_CD (HCRD\_PRST) & Active when card present \\ \hline
     SD\_CS (CS) & Asserted 74 clock cycles \\ \hline
+    SU\_BERR (!BERR/INT) & Low when error occurs, stays until error is cleared \\ \hline
+    SU\_BUSY (!BUSY) & >100ms to complete enumeration/de-enumeration \\ \hline
+    SU\_MODE (MODE) & Active during simple control \\ \hline
     XB\_CS (SPI\_!SSEL) & Not specified \\ \hline
     XB\_DR (!DTR/SLEEP) & Not specified \\ \hline
     XB\_SLEEP (ON/!SLEEP) & Not specified \\ \hline
-    GYR\_CS (CS) & Setup time: 5ns, Hold time: 8ns \\ \hline
-    GYR\_DR (DRDY/INT2) & Interrupt: enabled until acknowledged by the MCU \\ \hline
-    GPS\_DR (DR\_INT) & Needs to be toggled by low-high-low with >10ms pulse length \\ \hline
-    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2 seconds during valid fix condition \\ \hline
-    MAG\_DR (DRDY) & interrupt: enabled when a new set of measurements are available \\ \hline
     \end{tabular}%
   \label{tab:timeReqs}%
 \end{table}%
