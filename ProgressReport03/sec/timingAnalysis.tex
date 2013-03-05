@@ -6,7 +6,7 @@ This section compares the maximum external clock frequencies of all components a
 
 Two timers will be needed for sampling. The first timer will control the sample frequency for all the components.  In order to sample at an accurate frequency of 256Hz, an external crystal with a low frequency of 38.400kHz will be used. To achieve this, the crystal will be connected to one of the timers, and the terminal count will be set to 150 with a prescale divider of one. The second timer will control the sampling time of 30 seconds. The prescaler of this timer will be set to 1 and the terminal count will be set to 38,400. 30 counts of the terminal register will produce the interrupt that will conclude the sampling mode.
 
-The reason why a 38.400kHz crystal was chosen is because the GPS communicates through UART with a 9600 baud rate. If a standard 32.768kHz crystal is used instead, the frequency divider would be 3.4, which would produce an effective baud rate of 9637.65bps. This translates to a maximum error of 17.19\%, which is unacceptable to the GPS. This problem is solved by using a 38.400kHz crystal, which would produce an effective baud rate of 9600bps with 0.00\% error with a frequency divider of 4. The use of a 38.400kHz crystal will not affect real time keeping nor sampling rate, because a 256Hz signal can be obtained by counting 150 cycles of the crystal, and a second can be obtained by counting 38400, both of which fit into a 16bit timer compare register.
+The reason why a 38.400kHz crystal was chosen is because the GPS communicates through UART with a 9600 baud rate. If a standard 32.768kHz crystal is used instead, the frequency divider would be 3.4, which would produce an effective baud rate of 9637.65bps. This translates to a maximum error of 17.19\%, which is unacceptable for maintaining a stable communication link with the GPS module. This problem is solved by using a 38.400kHz crystal, which would produce an effective baud rate of 9600bps with 0.00\% error with a frequency divider of 4. The use of a 38.400kHz crystal will not affect real time keeping nor sampling rate, because a 256Hz signal can be obtained by counting 150 cycles of the crystal, and a second can be obtained by counting 38400, both of which fit into a 16bit timer compare register.
 
 Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader specifications. The card reader comes preprogrammed to accept a 12MHz clock input that is used for the USB and SD subsystems.
 
@@ -34,7 +34,7 @@ Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader
 \end{table}%
 
 \subsection{Point-to-point communication}
-This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C.
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. Unfortunately, many manufacturers do not specify these values in the device data sheets. Experiments on signal timing will be performed on such devices, and a 10\% error will be added to ensure compatibility.
 
 \begin{table}[H]
   \centering
@@ -44,7 +44,7 @@ This section outlines the minimum requirements for timing signals of the devices
     Port  & Time Required \\
     \hline \hline
     GPS\_DR (DR\_INT) & Needs to be toggled by low-high-low with $>$10ms pulse length \\ \hline
-    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2 seconds during valid fix condition \\ \hline
+    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2s during valid fix condition \\ \hline
     GYR\_CS (CS) & Setup time: 5ns, Hold time: 8ns \\ \hline
     GYR\_DR (DRDY/INT2) & Interrupt: enabled until acknowledged by the MCU \\ \hline
     MAG\_DR (DRDY) & Interrupt: enabled when a new set of measurements are available \\ \hline
@@ -66,6 +66,6 @@ This section outlines the minimum requirements for timing signals of the devices
 \subsection{Analog considerations}
 There is only one analog component in the system, the ADXL377 accelerometer. Care must be taken to ensure that the sampling rate of the MCU's ADC can be set to twice the frequency of the analog signal. The ADXL377 can output data at 1000Hz, but this system requires it to be 500Hz. This means that the MCU's ADC must be capable of sampling at a rate of 1ksps. The MSP430FR5969's ADC is capable of sampling at 200ksps, which means that the accelerometer is also compatible with the MCU.
 
-A second consideration should be made when interfacing with an analog component: slew rate compatibility. There is no documented specification of the ADC's slew rate in the MSP430FR5969's datasheet, but the voltage range is specified to be from 0V to +Vcc. As long as the output values of the ADXL377 accelerometer are within the ADC's input range, slew rate will be unaccounted for.
+A second consideration should be made when interfacing with an analog component: slew rate compatibility. There is no documented specification of the ADC's slew rate in the MSP430FR5969's datasheet, but the acceptable input voltage range is specified to be from 0V to +Vcc. As long as the output values of the ADXL377 accelerometer are within the ADC's input range, slew rate will be unaccounted for.
 
 
