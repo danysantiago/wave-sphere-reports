@@ -8,7 +8,7 @@ Afterwards, the system will enter in another low power mode which will be referr
 The following sections contain a more thorough explanation of each of the operating modes mentioned, along with a flowchart of its own to help explain what can be done in each mode.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{img/SystemFlowchart}
+	\includegraphics[width=\textwidth]{img/SystemFlowchart}
 	\caption{System Operating Chart \label{fig:systemFlowchart}}
 \end{figure}
 
@@ -33,7 +33,7 @@ Retrieval Mode is the operation mode of the device in which the system transfers
 While in Sampling Mode the device captures data from the accelerometer, gyroscope and magnetometer. Data is captured for 30 seconds and data points are saved in the SD card, each with a time stamp from the time which they were captured. The data will be sampled at 256Hz. This frequency will be fulfilled by using a timer with a crystal oscillator.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.7]{img/SamplingEventService}
+	\includegraphics[width=\textwidth]{img/SamplingEventService}
 	\caption{Flowchart for Sampling Event Service \label{fig:samplingMode}}
 \end{figure}
 
@@ -41,7 +41,7 @@ While in Sampling Mode the device captures data from the accelerometer, gyroscop
 On Locate Mode the user is trying find and retrieve the device. The system turns on the XBee Module and the GPS. The system then proceeds to establishing a ZigBee connection to the base station and get a GPS lock. Once the device gets its location using the GPS Module it will then broadcast the location to the base station through the ZigBee connection.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=1.0]{img/LocationEventService}
+	\includegraphics[scale=0.8]{img/LocationEventService}
 	\caption{Flowchart for Location Event Service \label{fig:locateMode}}
 \end{figure}
 
@@ -49,6 +49,6 @@ On Locate Mode the user is trying find and retrieve the device. The system turns
 The status event service will send battery charge status and SD card information to the base station. The SD card information includes free space and file system information.
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=1.0]{img/StatusEventService}
+	\includegraphics[scale=0.8]{img/StatusEventService}
 	\caption{Flowchart for Status Event Service \label{fig:statusMode}}
 \end{figure}
