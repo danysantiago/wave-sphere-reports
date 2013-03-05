@@ -13,7 +13,7 @@ Table \ref{tab:logicComp} shows all the digital components in the system along w
     \caption{Logic Compatibility  \label{tab:logicComp}} \\
      \hline
     \rowcolor{Gray}
-   Component & $V_{DD}$   & $V_{IH}$   & $V_{IL}$   & $V_{OH}$   & $V_{OL}$   & Notes \\
+    Component & $V_{DD}$   & $V_{IH}$   & $V_{IL}$   & $V_{OH}$   & $V_{OL}$   & Notes \\
     \hline \hline \endfirsthead
     
          \hline
@@ -30,9 +30,9 @@ Table \ref{tab:logicComp} shows all the digital components in the system along w
     Gyroscope & 3.3   & 2.64  & 0.66  & 2.64  & 0.66  & $V_{OH}$ and $V_{OL}$ assumed equal to $V_{IH}$ and $V_{IL}$ \\ \hline
     GPS   & 3.3   & 2     & 0.8   & 2.4   & 0.4   & N/A \\ \hline
     Battery Gauge & 2.5   & 1.2   & 0.6   & 2     & 0.4   & Logic voltage Shifter was added to the schematic. \\ \hline
-    SD Card & 3.3   & 2.64  & 0.66  & 2.64  & 0.66  & $V_{DD}$*0.8 and $V_{DD}$*0.2 values assumed for $V_{IH}$ and $V_{IL}$ respectively \\\hline
+    SD Card & 3.3 & 2.06   & 0.83   & 2.48   & 0.41  & Obtained from \cite{ibrahim2010sd} \\ \hline
     Power Switch & 3.3   & 2.2   & 1.1   & 3.3   & 0     & $V_{IH}$ and $V_{IL}$ were extrapolated from Data sheet. 3.3 and 0 were assumed for $V_{OH}$ and $V_{OL}$ because it uses CMOS technology \\ \hline
-    SD Card to USB Converter & 3.3   & 2.2   & 0.4   & 2.9   & 0.4   & N/A \\ \hline
+    SD Card to USB Converter & 3.3 & 2.06   & 0.83   & 2.48   & 0.41   & N/A \\ \hline
     \end{longtable}%
   
 \end{center}%
@@ -83,7 +83,7 @@ In order to ensure that no component draws more current than the one its driver 
 
 
 \subsection{Power Supply Design}
-In order to design the power supply that will be used by the system, the worst case quiescent current of each component should be taken into account.  Although not all components will be operating at the same time, it is ensured that the system will continue to function properly for the worst possible case by performing the analysis in this manner.  To ensure proper operation of the system, the Low-Dropout Regulator (LDO) must supply enough current for the entire system.  Table \ref{tab:powerSupply} shows a list of components along with the worst case quiescent current of each of them.  By adding all the current, a maximum current consumption of 181 mA was determined.  The LDO is rated for a maximum output of 500 mA, which is well above the determined usage. In order to complete the power supply circuit a USB Battery Charger and a Battery Meter were added as well.  
+In order to design the power supply that will be used by the system, the worst case quiescent current of each component should be taken into account.  Although not all components will be operating at the same time, it is ensured that the system will continue to function properly for the worst possible case by performing the analysis in this manner.  To ensure proper operation of the system, the Low-Dropout Regulator (LDO) must supply enough current for the entire system.  Table \ref{tab:powerSupply} shows a list of components along with the worst case quiescent current of each of them.  By adding all the current, a maximum current consumption of 181 mA was determined.  The LDO is rated for a maximum output of 500 mA, which is well above the determined usage. In order to complete the power supply circuit, a USB Battery Charger and a Battery Meter were added as well.  
 \begin{table}[H]
   \centering
   \caption{Worst Case Quiescent Currents for components}
