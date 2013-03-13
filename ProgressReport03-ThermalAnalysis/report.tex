@@ -30,6 +30,21 @@ In order to estimate the average operating junction temperature for the MCU the 
 
 \[P_{diss} = V_{DD} \cdot \left(I_{DD(avg)} + \sum_{allpins} |I_{IO(avg)}| \right)\]
 
+Although no information is available for the $\theta_{JA}$ of the MSP430FR5969, since this value depends on the package and the area exposed to the air, a device with the same package (48-pin QFN), the MSP430F5510, was found to have $\theta_{JA} = 28.6^\circ C/W$ and this value was instead used.  In the same manner, although no information on the IO currents is available, the ones for the MSP430F5510 will be used instead.
+
+In full drive mode, the MSP430F5510 can output upto 45mA through its IO pins while still maintaining a valid $V_{OL}$.  
+
+Our circuit uses a total of 28 IO pins.  Assuming an average current of 20mA per pin, which is inaccurate because most pins need at most hundreds of microamperes but this leaves margin for safety, and an average supply current of 1.6mA, the total power dissipation can then be calculated to be:
+\[P_{diss} = V_{DD} \cdot \left(1.6m + 28 \cdot 20m \right)\]
+\[\boxed{P_{diss} = 1.85W}\]
+
+Using $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
+
+\[T_J = 25 + 26.8 \cdot 1.85 \]
+\[\boxed{T_J = 78.0 ^\circ C}\]
+
+The datasheet states that the maximum junction temperature is $95^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
+
 
 \subsection{Low-Dropout Regulator}
 The datasheet for the TPS73501 contains a section on power dissipation and provides the following formula for calculating the power dissipation across the device:
