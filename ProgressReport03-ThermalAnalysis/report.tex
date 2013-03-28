@@ -25,6 +25,7 @@ where $T_J$ is the estimated junction temperature, $T_A$ is the ambient temperat
 
 This formula is applied throughout the following sections to determine whether the MCU and the power ICs will be operating at a safe temperature or if they require additional heat dissipation mechanisms such as heat syncs, fans, etc.
 
+%TODO
 \subsection{Microcontroller}
 In order to estimate the average operating junction temperature for the MCU the power dissipated by the IC will first be calculated.  The following formula, which was taken from \cite[419]{Jimenez2013}, will be used:
 
@@ -51,50 +52,52 @@ The datasheet for the TPS73501 contains a section on power dissipation and provi
 
 \[P_{diss} = \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT}\]
 
-The voltage provided by the battery charger circuit is 5.5 V and the required output voltage is 3.3 V.  The estimated output current required is 180.96 mA.  In order to leave a margin of error, a rounded value of 200 mA will be used in this calculation.  Thus, the power dissipated by the device is given by:
+The voltage provided by the battery charger circuit is 3.925 V and the required output voltage is 3.3 V.  The estimated output current required is 180.96 mA.  In order to leave a margin of error, a rounded value of 200 mA will be used in this calculation.  Thus, the power dissipated by the device is given by:
 
-\[P_{diss} = \left(5.5 - 3.3\right)\cdot 200m\]
-\[\boxed{P_{diss} = 440mW = 0.44W}\]
+\[P_{diss} = \left(3.925 - 3.3\right)\cdot 200m\]
+\[\boxed{P_{diss} = 125mW = 0.125W}\]
 
 Since for this device, $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 47.8 \cdot 0.44 \]
-\[\boxed{T_J = 46.0 ^\circ C}\]
+\[T_J = 25 + 47.8 \cdot 0.125 \]
+\[\boxed{T_J = 30.98 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $150^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
+
 \subsection{Battery Charger}
 
-The datasheet for the BQ24075 provides the following formula for estimating the power dissipation across the device.
-\[P_{diss} = \left(V_{OUT} - V_{IN}\right)\cdot I_{OUT} + \left(V_{OUT} - V_{BAT}\right)\cdot I_{BAT}\]
+The datasheet for the BQ24072 provides the following formula for estimating the power dissipation across the device.
+\[P_{diss} = \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT} + \left(V_{OUT} - V_{BAT}\right)\cdot I_{BAT}\]
 
 The output voltage of the device is 5.5 V, while the input voltage is 5 V as dictated by the USB standard.  The output current can be estimated to be 50mA by taking into account the two LEDs connected to this pin (at about 20mA per LED) and the LDO input (46 $\mu$A) and rounding up to leave a margin for safety.  The circuit was designed for a battery voltage of 3.7 V and a current of 800 mA.
 
-\[P_{diss} = \left(5.5 - 5\right)\cdot 50m + \left(5.5 - 3.7\right)\cdot 800m\]
-\[\boxed{P_{diss} = 1.47W}\]
+\[P_{diss} = \left(5 - 3.925\right)\cdot 50m + \left(3.925 - 3.7\right)\cdot 500m\]
+\[\boxed{P_{diss} = 166 mW}\]
 
 Since for this device, $\theta_{JA} = 39.47^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 39.47 \cdot 1.47 \]
-\[\boxed{T_J = 86.0 ^\circ C}\]
+\[T_J = 25 + 39.47 \cdot 0.166 \]
+\[\boxed{T_J = 31.55 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $125^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
+
 \subsection{Battery Meter}
-Although the datasheet for the BQ27510 does not provide a direct formula for power dissipation and because the battery meter has an internal LDO, the formula used for the MCU IO pins will be combined with the power dissipation formula of the LDO to obtain a more robust estimate for the power dissipated.  
+Although the datasheet for the BQ27410 does not provide a direct formula for power dissipation and because the battery meter has an internal LDO, the formula used for the MCU IO pins will be combined with the power dissipation formula of the LDO to obtain a more robust estimate for the power dissipated.  
 
 \[P_{diss} = V_{DD} \cdot \left(\sum_{allpins} |I_{IO(avg)}| \right) + \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT}\]
 
 The IO pin output current for this device is between 0.5 and 1 mA.  1 mA will be used for the two $I^2C$ pins, which gives a total IO current of 2 mA.  The maximum supply current is 103 $\mu$A and this will be used instead of the average supply current to leave a margin of safety.  The input voltage is 5.5 V and the regulated output voltage is 2.5 V.
 
-\[P_{diss} = 2.5 \cdot \left(2m \right) + \left(5.5 - 2.5\right)\cdot 0.103m\]
+\[P_{diss} = 2.5 \cdot \left(2m \right) + \left(3.7 - 2.5\right)\cdot 0.103m\]
 
-\[\boxed{P_{diss} = 5.31 mW}\]
+\[\boxed{P_{diss} = 5.12 mW}\]
 
 Since for this device, $\theta_{JA} = 64.17^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 64.1 \cdot 0.00531 \]
-\[\boxed{T_J = 25.34 ^\circ C}\]
+\[T_J = 25 + 64.1 \cdot 0.00512 \]
+\[\boxed{T_J = 25.33 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $100^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
