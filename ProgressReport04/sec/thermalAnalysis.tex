@@ -1,27 +1,9 @@
-\documentclass[12pt,letterpaper]{article}
-\usepackage{res/reportStyle}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{rotating}
-\usepackage{multirow}
-\usepackage{pdfpages}
-\usepackage{color,colortbl}
-\usepackage{wrapfig}
-\usepackage{amsmath}
-\definecolor{Gray}{gray}{0.9}
-
-\begin{document}
-
-%\input{res/titlePage.tex}
-%\pagenumbering{roman}
-%\tableofcontents \newpage
-%\pagenumbering{arabic}
-
 \section{Thermal Analysis}
 Performing a thermal analysis on the system will reveal whether the operating temperature of the individual ICs is below their maximum rating.  In order to perform this analysis, the junction temperature $T_J$ will be calculated for the MCU and the power ICs.  The junction temperature is given by \cite[419]{Jimenez2013}:
 
 \[T_J = T_A + \theta_{JA} \cdot P_{diss}\]
 
-where $T_J$ is the estimated junction temperature, $T_A$ is the ambient temperature (taken here to be $25^\circ C$), $\theta_{JA}$ is the junction-to-ambient thermal resistance and $P_{diss}$ is the estimated power consumption of the device. 
+where $T_J$ is the estimated junction temperature, $T_A$ is the ambient temperature (taken here to be $27^\circ C$), $\theta_{JA}$ is the junction-to-ambient thermal resistance and $P_{diss}$ is the estimated power consumption of the device. 
 
 This formula is applied throughout the following sections to determine whether the MCU and the power ICs will be operating at a safe temperature or if they require additional heat dissipation mechanisms such as heat syncs, fans, etc.
 
@@ -33,16 +15,31 @@ In order to estimate the average operating junction temperature for the MCU the 
 
 Although no information is available for the $\theta_{JA}$ of the MSP430FR5969, since this value depends on the package and the area exposed to the air, a device with the same package (48-pin QFN), the MSP430F5510, was found to have $\theta_{JA} = 28.6^\circ C/W$ and this value was instead used.  In the same manner, although no information on the IO currents is available, the ones for the MSP430F5510 will be used instead.
 
-In full drive mode, the MSP430F5510 can output upto 45mA through its IO pins while still maintaining a valid $V_{OL}$.  
-
-Our circuit uses a total of 28 IO pins.  Assuming an average current of 20mA per pin, which is inaccurate because most pins need at most hundreds of microamperes but this leaves margin for safety, and an average supply current of 1.6mA, the total power dissipation can then be calculated to be:
-\[P_{diss} = V_{DD} \cdot \left(1.6m + 28 \cdot 20m \right)\]
-\[\boxed{P_{diss} = 1.85W}\]
+In full drive mode, the MSP430F5510 can output upto 45mA through its IO pins while still maintaining a valid $V_{OL}$.    Table \ref{tab:ioCurrents} shows the assumed IO currents for each components.
+\begin{table}[H]
+  \centering
+  \caption{Worst Case IO current for pins}
+    \begin{tabular}{|c|c|c|c|}
+     \hline
+     \rowcolor{Gray}
+    Pin & $I_{DD(Active)}$ ($\mu$A) & Qty & Total Current ($\mu$A)\\
+     \hline \hline
+    SPI & 100  & 3 & 300 \\ \hline
+   	$I^2C$ & 10 & 2 & 20  \\ \hline
+    UART & 1000 & 2 & 2000 \\ \hline
+    GPIO  & 1000 & 21 & 21000\\ \hline \hline
+    Total & 23320  \\ \hline     
+    \end{tabular}%
+  \label{tab:ioCurrents}%
+\end{table}%
+Assuming an IO current of 23.32mA and an average supply current of 1.6mA, the total power dissipation can then be calculated to be:
+\[P_{diss} = V_{DD} \cdot \left(1.6m + 23.32m \right)\]
+\[\boxed{P_{diss} = 82.24mW}\]
 
 Using $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 26.8 \cdot 1.85 \]
-\[\boxed{T_J = 78.0 ^\circ C}\]
+\[T_J = 27 + 26.8 \cdot .08224 \]
+\[\boxed{T_J = 29.20 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $95^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
@@ -59,8 +56,8 @@ The voltage provided by the battery charger circuit is 3.925 V and the required 
 
 Since for this device, $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 47.8 \cdot 0.125 \]
-\[\boxed{T_J = 30.98 ^\circ C}\]
+\[T_J = 27 + 47.8 \cdot 0.125 \]
+\[\boxed{T_J = 32.98 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $150^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
@@ -77,8 +74,8 @@ The output voltage of the device is 5.5 V, while the input voltage is 5 V as dic
 
 Since for this device, $\theta_{JA} = 39.47^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 39.47 \cdot 0.166 \]
-\[\boxed{T_J = 31.55 ^\circ C}\]
+\[T_J = 27 + 39.47 \cdot 0.166 \]
+\[\boxed{T_J = 33.55 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $125^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
@@ -96,11 +93,8 @@ The IO pin output current for this device is between 0.5 and 1 mA.  1 mA will be
 
 Since for this device, $\theta_{JA} = 64.17^\circ C/W$, the total junction temperature is then given by:
 
-\[T_J = 25 + 64.1 \cdot 0.00512 \]
-\[\boxed{T_J = 25.33 ^\circ C}\]
+\[T_J = 27 + 64.1 \cdot 0.00512 \]
+\[\boxed{T_J = 27.33 ^\circ C}\]
 
 The datasheet states that the maximum junction temperature is $100^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
 
-\bibliographystyle{ieeetr}
-\bibliography{references}
-\end{document}
