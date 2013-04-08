@@ -2,4 +2,27 @@
 
 Previously, it was stated that the system was going to use two external crystal oscillators of 38.4kHz and 12MHz. The 12Mhz crystal was added to comply with the USB-to-SD reader specifications.  The 38.4kHz crystal was selected to comply with the frequencies needed for the rest of the communications. In a recent analysis, it was found that the 12Mhz crystal generates all the baud rates and frequencies needed with 0\% error. This is why this system will only be using an external crystal (of 12Mhz) instead of the two proposed before.   
 
+\begin{table}[H]
+  \centering
+  \caption{Components Frequencies}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \rowcolor{Gray}
+    Component & Protocol & Frequency \\
+    \hline \hline
+    MCU   & -     & 4, 8, or 16 MHz \\ \hline
+    External Crystal & -     & 12.000MHz \\ \hline
+    %ADC   & -     & 200ksps \\ \hline %no se si esto hay q ponerlo...
+    %Accelerometer & Analog & 500Hz \\ \hline
+    Battery Gauge & I$^2$C & 10-100kHz \\ \hline
+    Magnetometer & I$^2$C & 0-100kHz \\ \hline
+    Gyroscope & SPI   & 0-10MHz \\ \hline
+    RF Wakeup & SPI   & 0-2MHz \\ \hline
+    SD card & SPI   & 0-25MHz \\ \hline
+    GPS   & UART  & 9,600 baud \\ \hline
+    Xbee  & UART   & 9,600 baud \\ \hline
+    \end{tabular}%
+  \label{tab:compFreq}%
+\end{table}%
+
 %TODO add to this explanation all the calculations, etc....
