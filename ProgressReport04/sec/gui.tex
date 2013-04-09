@@ -2,8 +2,7 @@
 
 This section contains a beta version of the system's graphical user interface (GUI).
 
-When the user opens the GUI, the main window, shown in figure~\ref{fig:mainWindow}, appears. The user needs to select a sphere in order to proceed.  Figure~\ref{fig:viewSphere} shows how the window looks when a sphere is selected. When the user selects retrieval mode, the right part of the GUI changes. Figure~\ref{fig:retrievalMode} shows how the window looks at this moment.  When the user selects one of the download options the GUI asks for the location where the user wants to store the data, as shown in figure~\ref{fig:download}. When the user selects sampling mode, a progress bar will appear for the duration of the sample. Figure~\ref{fig:samplingMode} shows how the window looks in this mode. After the sampling time has passed, the GUI automatically enters in locate mode and opens a pop-up to show location information, as shown in figure~\ref{fig:locateMode}. When the user selects diagnostic mode, a pop-up showing diagnosic information appears, as shown in figure~\ref{fig:diagnosticMode}.
-
+When the user opens the GUI, the main window, shown in Figure~\ref{fig:mainWindow}, is shown. The user needs to select a sphere in order to perform any other action.  Figure~\ref{fig:viewSphere} shows the information and options available when a sphere is selected. From this screen, the user can select to operate the sphere in several modes including retrieval, sampling and diagnostic modes.  The user can also choose to send a signal to turn off the selected sphere.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/mainWindow}
@@ -15,7 +14,7 @@ When the user opens the GUI, the main window, shown in figure~\ref{fig:mainWindo
 	\includegraphics[scale=0.7]{img/viewSphere}
 	\caption{Sphere View \label{fig:viewSphere}}
 \end{figure}
-
+When the user selects retrieval mode, the right section of the GUI changes, as shown in Figure~\ref{fig:retrievalMode}, to allow the user to retrieve the data collected by the selected sphere.  When the user selects one of the download options the GUI asks for the location where the user wants to store the data, as shown in Figure~\ref{fig:download}. 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/retrievalMode}
@@ -28,6 +27,7 @@ When the user opens the GUI, the main window, shown in figure~\ref{fig:mainWindo
 	\caption{Download \label{fig:download}}
 \end{figure}
 
+When the user selects sampling mode, a progress bar will be shown to indicate the time elapsed and remaining throughout duration of the sample. Figure~\ref{fig:samplingMode} shows how the window looks in this mode. After the data sampling is completed, the GUI automatically enters locate mode and opens a pop-up to show location information, as shown in Figure~\ref{fig:locateMode}.  When the user exits locate mode, they are directed to the "Sphere View" shown in Figure~\ref{fig:viewSphere}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.7]{img/samplingMode}
@@ -39,6 +39,8 @@ When the user opens the GUI, the main window, shown in figure~\ref{fig:mainWindo
 	\includegraphics[scale=0.7]{img/locateMode}
 	\caption{Locate Mode \label{fig:locateMode}}
 \end{figure}
+
+When the user selects diagnostic mode, a pop-up showing diagnostic information appears, as shown in figure~\ref{fig:diagnosticMode}.  This will allow the user to ensure the proper operation of the selected sphere.
 
 \begin{figure}[H]
 	\centering
