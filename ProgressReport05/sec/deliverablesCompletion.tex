@@ -1,0 +1,55 @@
+\section{Hardware Components}
+A table showing a list of the system features and expected functionality along with a blank field for annotations follows.  The features are divided by the operating modes of the systems so that they are easier to follow.
+
+ \begin{longtable}{|p{\textwidth}|}
+    \caption{List of System Features and Functionality \label{tab:deliverables}} \\
+     \hline
+ \endfirsthead   
+         \hline
+ \endhead
+    
+    \endfoot 
+    %Note: \myth{Value} = my table header.  It contains everything needed to 
+    %Note: \paf = Professors annotation field, set at end of each table row it will end the row 
+    %for you and insert everything needed to start the next row
+       
+		\myth{Main}
+		\item Power on System with RF module
+		\paf
+		
+		\myth{Status Mode}
+		\item Display SD Card Free Space on GUI
+		\item Display Battery Level on GUI
+		\item Display Drifter ID on GUI
+		\item Allow users to switch between any of the other operating modes
+		\paf
+		
+		\myth{Diagnostic Mode}
+		\item Display raw sensor measurements on GUI
+		\item Display GPS location on GUI if available
+		\item Display Battery Level on GUI
+%		\item Display XBee Signal Strength
+		\paf
+		
+		\myth{Sampling Mode}
+		\item Collect Data from three sensors: Accelerometer, Magnetometer and Gyroscope
+		\item Sample at a frequency of 256Hz for a sampling window of 30 seconds
+		\item Write Data to SD card
+		\paf
+
+		\myth{Location Mode}
+		\item Get data from GPS and send it through XBee
+		\item Display received location data on GUI until the user exits this mode.
+		\paf
+		
+		\myth{Retrieval Mode}
+		\item Read data from SD card and display on GUI
+		\item Wirelessly transfer data from SD card to the GUI through the XBee
+		\item Erase data from SD card.
+		\paf
+		
+		\myth{Shut Down Mode}
+		\item Shut down all components and send MCU to low power mode
+		\paf
+
+        \end{longtable}%
