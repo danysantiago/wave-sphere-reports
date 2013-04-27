@@ -1,0 +1,87 @@
+\documentclass[12pt,letterpaper,draft]{article}
+\usepackage{res/reportStyle}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{color,colortbl}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage[obeyDraft]{todonotes}
+\definecolor{Gray}{gray}{0.9}
+
+\begin{document}
+
+\input{res/titlePage.tex}
+\pagenumbering{roman}
+
+
+
+\input{sec/abstract}
+%TODO 
+\todo[inline]{Remove once done, use todo command to add new item to list}
+
+\listoftodos
+\tableofcontents \newpage
+\listoffigures \newpage
+\listoftables \newpage
+\pagenumbering{arabic}
+
+\input{sec/introduction}
+\input{sec/blockDiagram}
+\input{sec/powerAnalysis}
+\input{sec/thermalAnalysis}
+\input{sec/timingAnalysis}
+\input{sec/memoryUsage}
+\input{sec/hwReliability}
+\input{sec/hwLevelOfCompletion}
+\input{sec/theoreticalBackground}
+\input{sec/conclusion}
+\input{sec/futureWork}
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+
+
+\appendix
+\addappheadtotoc
+
+\begin{customAppendixPage}{System Specifications}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+\begin{customAppendixPage}{System Schematics}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+\begin{customAppendixPage}{Component Layout}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+\begin{customAppendixPage}{User Guide}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+\begin{customAppendixPage}{Bill of Materials}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+\begin{customAppendixPage}{Work Distribution}
+\lipsum[1]
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\lipsum
+
+
+
+\end{document}

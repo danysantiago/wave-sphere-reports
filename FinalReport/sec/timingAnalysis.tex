@@ -1,0 +1,77 @@
+\section{Timing Analysis}
+%TODO
+\todo[inline]{Old timing analysis, copied because it had a good format, however must be updated with the new information}
+The timing analysis consists of three main parts: Time bases, Point-to-point communication, and analog considerations. The purpose of this analysis is to ensure that no signal is transmitted at a faster frequency than the one its receiver can read, thus guaranteeing communications functionality and interoperability between all components and the MCU.
+
+\subsection{Time bases}
+This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 256Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I$^2$C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will be communicating at a 9600 baud rate and tolerates a 10\% error.
+
+\paragraph{Timers}
+
+Two timers will be needed for sampling. The first timer will control the sample frequency for all the components.  In order to sample at an accurate frequency of 256Hz, an external crystal with a low frequency of 38.400kHz will be used. To achieve this, the crystal will be connected to one of the timers, and the terminal count will be set to 150 with a prescale divider of one. The second timer will control the sampling time of 30 seconds. The prescaler of this timer will be set to 1 and the terminal count will be set to 38,400. 30 counts of the terminal register will produce the interrupt that will conclude the sampling mode.
+
+\paragraph{Crystal Oscillators}
+The reason why a 38.400kHz crystal was chosen is because the GPS communicates through UART with a 9600 baud rate. If a standard 32.768kHz crystal is used instead, the frequency divider would be 3.4, which would produce an effective baud rate of 9637.65bps. This translates to a maximum error of 17.19\%, which is unacceptable for maintaining a stable communication link with the GPS module. This problem is solved by using a 38.400kHz crystal, which would produce an effective baud rate of 9600bps with 0.00\% error with a frequency divider of 4. The use of a 38.400kHz crystal will not affect real time keeping nor sampling rate, because a 256Hz signal can be obtained by counting 150 cycles of the crystal, and a second can be obtained by counting 38400, both of which fit into a 16bit timer compare register.
+
+Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader specifications. The card reader comes preprogrammed to accept a 12MHz clock input that is used for the USB and SD subsystems.
+
+\begin{table}[H]
+  \centering
+  \caption{Components Frequencies}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \rowcolor{Gray}
+    Component & Protocol & Frequency \\
+    \hline \hline
+    MCU   & -     & 4, 8, or 16 MHz \\ \hline
+    Crystal 1 & -     & 38.400kHz \\ \hline
+    Crystal 2 & -     & 12.000MHz \\ \hline
+    ADC   & -     & 200ksps \\ \hline
+    Accelerometer & Analog & 500Hz \\ \hline
+    Battery Gauge & I$^2$C & 10-100kHz \\ \hline
+    Magnetometer & I$^2$C & 0-100kHz \\ \hline
+    Gyroscope & SPI   & 0-10MHz \\ \hline
+    RF Wakeup & SPI   & 0-2MHz \\ \hline
+    SD card & SPI   & 0-25MHz \\ \hline
+    Xbee  & SPI   & 0-5MHz \\ \hline
+    GPS   & UART  & 9,600 baud \\ \hline
+    \end{tabular}%
+  \label{tab:compFreq}%
+\end{table}%
+
+\subsection{Point-to-point communication}
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. Unfortunately, many manufacturers do not specify these values in the device data sheets. Experiments on signal timing will be performed on such devices, and a 10\% error will be added to ensure compatibility.
+
+\begin{table}[H]
+  \centering
+  \caption{Timing Requirements}
+    \begin{tabular}{|c|p{3in}|}
+    \hline
+    \rowcolor{Gray}
+    Port  & Time Required \\
+    \hline \hline
+    GPS\_DR (DR\_INT) & Needs to be toggled by low-high-low with $>$10ms pulse length \\ \hline
+    GPS\_FIX (UI\_FIX) & Signal outputs 1s pulse every 2s during valid fix condition \\ \hline
+    GYR\_CS (CS) & Setup time: 5ns, Hold time: 8ns \\ \hline
+    GYR\_DR (DRDY/INT2) & Interrupt: enabled until acknowledged by the MCU \\ \hline
+    MAG\_DR (DRDY) & Interrupt: enabled when a new set of measurements are available \\ \hline
+    RF\_WK (WAKE) & Not specified \\ \hline
+    RFWK\_CS (CS) & Needs to be high as long as data needs to be read. 65 clock cycles to calibrate \\ \hline
+    SD\_CD (HCRD\_PRST) & Active when card present \\ \hline
+    SD\_CS (CS) & Asserted 74 clock cycles \\ \hline
+    SU\_BERR (!BERR/INT) & Low when error occurs, stays until error is cleared \\ \hline
+    SU\_BUSY (!BUSY) & $>$100ms to complete enumeration/de-enumeration \\ \hline
+    SU\_MODE (MODE) & Active during simple control \\ \hline
+    XB\_CS (SPI\_!SSEL) & Not specified \\ \hline
+    XB\_DR (!DTR/SLEEP) & Not specified \\ \hline
+    XB\_SLEEP (ON/!SLEEP) & Not specified \\ \hline
+    \end{tabular}%
+  \label{tab:timeReqs}%
+\end{table}%
+
+
+\subsection{Analog considerations}
+There is only one analog component in the system, the ADXL377 accelerometer. Care must be taken to ensure that the sampling rate of the MCU's ADC can be set to twice the frequency of the analog signal and that the input voltage range of the ADC is enough to allow for the output voltage swing of the ADXL377. The ADXL377 can output data at 1000Hz, but this system requires it to be 500Hz. This means that the MCU's ADC must be capable of sampling at a rate of at least 1ksps. The MSP430FR5969's ADC is capable of sampling at 200ksps, which is well above the required value.  The acceptable input voltage range is specified to be from 0V to +Vcc. Since the ADXL377 output voltage swing ranges from 0.1V to 2.8V, the accelerometer's output can be sampled without suffering from clipping distortion.  This makes the ADXL377 compatible with the MCU.
+
+A second consideration should be made when interfacing with an analog component: slew rate compatibility. There is no documented specification of the ADC's slew rate in the MSP430FR5969's data sheet. However, since the ADC takes 200ksps, one can assume that at a relatively low signal frequency of 500Hz, the accelerometer's data will not suffer from distortion because of slew rate limitations.
+
