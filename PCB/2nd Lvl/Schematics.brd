@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.2">
+<eagle version="6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1674,7 +1674,7 @@ This Sunstone Circuits 2 Layer .DRU has been set to cover our minimum requiremen
 <element name="U$4" library="holes" package="2,8" value="" x="14" y="47"/>
 <element name="U$5" library="holes" package="2,8" value="" x="45" y="12"/>
 <element name="LED4" library="led" package="SMARTLED-TTW" value="" x="9" y="29" rot="R90"/>
-<element name="R1" library="rcl" package="R0603" value="1.5k" x="14" y="29"/>
+<element name="R11" library="rcl" package="R0603" value="50" x="14" y="29"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -1844,7 +1844,7 @@ This Sunstone Circuits 2 Layer .DRU has been set to cover our minimum requiremen
 <wire x1="22.352" y1="39.751" x2="22.352" y2="25.527" width="0.254" layer="1"/>
 <wire x1="22.352" y1="25.527" x2="26.65" y2="21.229" width="0.254" layer="1"/>
 <wire x1="26.65" y1="21.229" x2="26.65" y2="15.05" width="0.254" layer="1"/>
-<contactref element="R1" pad="2"/>
+<contactref element="R11" pad="2"/>
 <wire x1="14.85" y1="29" x2="17.78" y2="31.93" width="0.254" layer="1"/>
 <wire x1="17.78" y1="31.93" x2="17.78" y2="38.608" width="0.254" layer="1"/>
 <wire x1="17.78" y1="38.608" x2="18.923" y2="39.751" width="0.254" layer="1"/>
@@ -1974,7 +1974,7 @@ This Sunstone Circuits 2 Layer .DRU has been set to cover our minimum requiremen
 <wire x1="11.049" y1="39.751" x2="8.001" y2="39.751" width="0.254" layer="1"/>
 </signal>
 <signal name="N$1">
-<contactref element="R1" pad="1"/>
+<contactref element="R11" pad="1"/>
 <contactref element="LED4" pad="A@1"/>
 <wire x1="9.5" y1="29" x2="13.15" y2="29" width="0.254" layer="1"/>
 </signal>

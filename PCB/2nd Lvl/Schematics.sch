@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.2">
+<eagle version="6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8324,7 +8324,7 @@ SMT header is CONN-09042.</description>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="LED4" library="led" deviceset="LED" device=""/>
 <part name="GND3" library="supply1" deviceset="GND" device=""/>
-<part name="R1" library="rcl" deviceset="R-US_" device="R0603" value="1.5k"/>
+<part name="R11" library="rcl" deviceset="R-US_" device="R0603" value="50"/>
 </parts>
 <sheets>
 <sheet>
@@ -8355,7 +8355,7 @@ SMT header is CONN-09042.</description>
 <instance part="GND1" gate="1" x="-12.7" y="91.44"/>
 <instance part="LED4" gate="G$1" x="96.52" y="-76.2" rot="R270"/>
 <instance part="GND3" gate="1" x="88.9" y="-81.28"/>
-<instance part="R1" gate="G$1" x="106.68" y="-76.2" rot="MR180"/>
+<instance part="R11" gate="G$1" x="106.68" y="-76.2" rot="MR180"/>
 </instances>
 <busses>
 </busses>
@@ -8490,7 +8490,7 @@ SMT header is CONN-09042.</description>
 <pinref part="U15" gate="G$1" pin="UI_FIX"/>
 <label x="109.22" y="-68.58" size="1.778" layer="95"/>
 <wire x1="119.38" y1="-68.58" x2="114.3" y2="-68.58" width="0.1524" layer="91"/>
-<pinref part="R1" gate="G$1" pin="2"/>
+<pinref part="R11" gate="G$1" pin="2"/>
 <wire x1="114.3" y1="-68.58" x2="109.22" y2="-68.58" width="0.1524" layer="91"/>
 <wire x1="111.76" y1="-76.2" x2="114.3" y2="-76.2" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="-76.2" x2="114.3" y2="-68.58" width="0.1524" layer="91"/>
@@ -8639,7 +8639,7 @@ SMT header is CONN-09042.</description>
 </net>
 <net name="N$1" class="0">
 <segment>
-<pinref part="R1" gate="G$1" pin="1"/>
+<pinref part="R11" gate="G$1" pin="1"/>
 <pinref part="LED4" gate="G$1" pin="A"/>
 <wire x1="101.6" y1="-76.2" x2="99.06" y2="-76.2" width="0.1524" layer="91"/>
 </segment>
