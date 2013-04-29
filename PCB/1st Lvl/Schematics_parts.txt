@@ -1,0 +1,59 @@
+Part	Value	Package	Library	Position	Layer
+
+C1  	4.7u  	C0603  	rcl 	  1654   2244	16
+C2  	0.01u  	C0603  	rcl 	  1768   2165	16
+C3  	2.2u  	C0603  	rcl 	  1890   2087	16
+C4  	1u  	C0603  	rcl 	   945   2283	16
+C5  	4.7u  	C0603  	rcl 	  1293   2109	16
+C6  	0.1u  	C0603  	rcl 	  1196   1929	16
+C7  	10u  	ELECTROLYTIC_CAP  	Micro2 	  1455   1800	16
+C8  	0.1u  	C0603  	rcl 	  1614   1732	16
+C9  	4.7u  	C0603  	rcl 	  1616   1494	16
+C10  	0.22u  	C0603  	rcl 	  1614   1614	16
+C11  	1u  	C0603  	rcl 	  1299    787	16
+C12  	1u  	C0603  	rcl 	  1417    787	16
+C13  	0.1u  	C0603  	rcl 	   512   1181	1
+C14  	0.1u  	C0603  	rcl 	   512   1063	1
+C15  	1n  	C0603  	rcl 	   512    945	1
+C16  	0.1u  	C0603  	rcl 	  1850   1299	1
+C17  	0.01u  	C0603  	rcl 	  1811    866	16
+C18  	0.01u  	C0603  	rcl 	  1811    984	16
+C19  	0.01u  	C0603  	rcl 	  1811   1102	16
+C20  	1u  	C0603  	rcl 	  1024    276	16
+C21  	2.2n  	C0603  	rcl 	  2323   1220	16
+C22  	22p  	C0603  	rcl 	   669    748	1
+C23  	1u  	C0603  	rcl 	  1589    362	16
+C24  	0.1u  	C0603  	rcl 	   945   1693	16
+C25  	22p  	C0603  	rcl 	   866    787	1
+C26  	1u  	C0603  	rcl 	   630    433	1
+JP1  	USB-MICROB  	USB-MICROB  	SparkFun-Connectors 	   157   1220	16
+JP2  	  	JP2  	jumper 	  2061   1898	1
+JP3  	20-SOCKET  	20-SOCKET  	Micro2 	   551   1496	1
+R1  	1.8k  	R0603  	rcl 	  1614   1693	1
+R2  	1.8k  	R0603  	rcl 	  1614   1850	1
+R3  	18.7k  	R0603  	rcl 	   827   2244	16
+R4  	1.5k  	R0603  	rcl 	   716   2186	16
+R6  	1.8k  	R0603  	rcl 	   591   2126	16
+R7  	1.8M  	R0603  	rcl 	  1073   1929	16
+R12  	10m  	R0603  	rcl 	  1535   2283	16
+R15  	6.19k  	R0603  	rcl 	   906    197	16
+SL1  	3.7V  	03P  	con-amp-quick 	  1220   2283	16
+SV1  	  	ML14  	con-ml 	  2126   1220	16
+U$2  	  	2,8  	holes 	   551   1850	1
+U$4  	  	2,8  	holes 	  1772    472	1
+U1  	TPS73533  	DRV6_1P6X1  	Micro2 	  1641   2001	1
+U2  	BQ24072_RGT_16  	RGT16_1P7X1P7  	Micro2 	   881   1991	1
+U3  	BQ27410-G1_DRZ_12  	DRZ12_1P95X2P45  	Micro2 	  1291   1991	1
+U4  	LSM303DLHC  	LGA_3X5X1_14L  	Micro2 	  1417   1535	1
+U5  	BU4S66G2  	SSOP5  	Micro2 	  1680   1296	16
+U6  	L3GD20  	L3GD20  	Micro2 	   753   1062	1
+U7  	SN74CB3T1G125_DCK_5  	DCK5  	Micro2 	  1811   1654	1
+U8  	ADXL377  	LFCSP-16  	Micro2 	  1850   1142	1
+U9  	MAX14502AETL+  	QFN40P500X500X80-41N  	Micro2 	  1220    354	1
+U10  	MSP430FR5969V2  	RGZ(S-PVQFN-N48)  	Micro2 	  1220   1063	1
+U11  	SPARKFUN_USD-SOCKETSMD  	SPARKFUN_MICRO-SD-SOCKET-PP  	Micro2 	  1158    737	16
+U12  	SN74CB3T1G125_DCK_5  	DCK5  	Micro2 	  1811   1811	1
+U13  	AS3930  	AS3930  	Micro2 	  1063   1575	1
+X1  	12MHZ  	12MHZ  	12Mhz 	   787    551	1
+
+

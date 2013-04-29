@@ -1,0 +1,40 @@
+Partlist exported from C:/Users/Adrian/UPRMDrive/Google Drive/Micro2/PCB/1st Lvl/Schematics.sch at 4/28/2013 10:53:04 AM
+
+Assembly variant: 
+
+Qty Value                  Device                 Parts                      
+1                          JP2E                   JP2                        
+1                          ML14                   SV1                        
+4   0.01u                  C-EUC0603              C2, C17, C18, C19          
+6   0.1u                   C-EUC0603              C6, C8, C13, C14, C16, C24 
+1   0.22u                  C-EUC0603              C10                        
+1   1.5k                   R-US_R0603             R4                         
+1   1.8M                   R-US_R0603             R7                         
+1   1.8k                   R-US_R0603             R6                         
+1   1n                     C-EUC0603              C15                        
+6   1u                     C-EUC0603              C4, C11, C12, C20, C23, C26
+1   2.2n                   C-EUC0603              C21                        
+1   2.2u                   C-EUC0603              C3                         
+1   3.7V                   M03                    SL1                        
+3   4.7u                   C-EUC0603              C1, C5, C9                 
+1   6.19k                  R-US_R0603             R15                        
+2   10k                    R-US_R0603             R1, R2                     
+1   10m                    R-US_R0603             R12                        
+1   10u                    SMD-AL-CAP             C7                         
+1   12MHZ                  12MHZ                  X1                         
+1   18.7k                  R-US_R0603             R3                         
+1   20-SOCKET              20-SOCKET              JP3                        
+2   22p                    C-EUC0603              C22, C25                   
+1   ADXL377                ADXL377                U8                         
+1   AS3930                 AS3930                 U13                        
+1   BQ24072_RGT_16         BQ24072_RGT_16         U2                         
+1   BQ27410-G1_DRZ_12      BQ27410-G1_DRZ_12      U3                         
+1   BU4S66G2               BU4S66G2               U5                         
+1   L3GD20                 L3GD20                 U6                         
+1   LSM303DLHC             LSM303DLHC             U4                         
+1   MAX14502AETL+          MAX14502AETL+          U9                         
+1   MSP430FR5969V2         MSP430FR5969V2         U10                        
+2   SN74CB3T1G125_DCK_5    SN74CB3T1G125_DCK_5    U7, U12                    
+1   SPARKFUN_USD-SOCKETSMD SPARKFUN_USD-SOCKETSMD U11                        
+1   TPS73533               TPS73533_DRV_6         U1                         
+1   USB-MICROB             USB-MICROB             JP1                        

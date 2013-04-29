@@ -1,0 +1,14 @@
+Partlist exported from C:/Users/Adrian/UPRMDrive/Google Drive/Micro2/PCB/2nd Lvl/Schematics.sch at 4/28/2013 4:43:45 PM
+
+Assembly variant: 
+
+Qty Value        Device       Parts           
+3                LED          LED1, LED2, LED3
+3   1.5k         R-US_R0603   R8, R9, R10     
+1   1u           C-EUC0603    C27             
+1   4.7u         C-EUC0603    C28             
+1   20-HEAD      20-HEAD      JP4             
+1   ANTENNA2SMD6 ANTENNA2SMD6 U17             
+1   IT530        IT530        U15             
+1   SDTR1130     SDTR1130     U16             
+1   XBEE-1B1     XBEE-1B1     U14             

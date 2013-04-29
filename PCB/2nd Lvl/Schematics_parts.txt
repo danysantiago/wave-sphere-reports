@@ -1,0 +1,21 @@
+EAGLE Version 6.0.0 Copyright (c) 1988-2011 CadSoft
+Board partlist for devices with packages for C:/Users/Adrian/UPRMDrive/Google Drive/Micro2/PCB/2nd Lvl/Schematics.sch at 28.04.2013 16:47:13.
+The tabulator separated list has been generated with 'Parts v1.3
+
+Part	Value	Package	Library	Position	Layer
+
+C27  	1u  	C0603  	rcl 	   906   1890	1
+C28  	4.7u  	C0603  	rcl 	  1339    709	1
+JP4  	20-HEAD  	20-HEAD  	Micro2 	   551   1496	16
+LED1  	  	SMARTLED-TTW  	led 	   354   1220	1
+LED2  	  	SMARTLED-TTW  	led 	   354   1457	1
+LED3  	  	SMARTLED-TTW  	led 	   354   1024	1
+R8  	1.5k  	R0603  	rcl 	   551   1457	1
+R9  	1.5k  	R0603  	rcl 	   551   1220	1
+R10  	1.5k  	R0603  	rcl 	   551   1024	1
+U$4  	  	2,8  	holes 	   551   1850	1
+U$5  	  	2,8  	holes 	  1772    472	1
+U14  	XBEE-1B1  	XBEE-1  	SparkFun-RF 	  1535   1063	1
+U15  	IT530  	IT530  	Micro2 	  1417    630	1
+U16  	SDTR1130  	SDTR1130-SMD  	Micro2 	   827    748	1
+U17  	ANTENNA2SMD6  	ANTENNA-CHIP6  	SparkFun-RF 	  1772    709	1
