@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.0">
+<eagle version="6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8322,6 +8322,9 @@ SMT header is CONN-09042.</description>
 <part name="GND28" library="supply1" deviceset="GND" device=""/>
 <part name="JP4" library="Micro2" deviceset="20-HEAD" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
+<part name="LED4" library="led" deviceset="LED" device=""/>
+<part name="GND3" library="supply1" deviceset="GND" device=""/>
+<part name="R1" library="rcl" deviceset="R-US_" device="R0603" value="1.5k"/>
 </parts>
 <sheets>
 <sheet>
@@ -8343,13 +8346,16 @@ SMT header is CONN-09042.</description>
 <instance part="R10" gate="G$1" x="63.5" y="-104.14" rot="MR0"/>
 <instance part="GND2" gate="1" x="71.12" y="-124.46" rot="MR0"/>
 <instance part="FRAME1" gate="G$1" x="-200.66" y="-134.62"/>
-<instance part="U17" gate="G$1" x="101.6" y="-58.42"/>
+<instance part="U17" gate="G$1" x="81.28" y="-60.96"/>
 <instance part="U14" gate="G$1" x="35.56" y="-96.52"/>
 <instance part="GND14" gate="1" x="12.7" y="-114.3" rot="MR0"/>
 <instance part="C27" gate="G$1" x="-7.62" y="-99.06"/>
 <instance part="GND28" gate="1" x="-7.62" y="-111.76" rot="MR0"/>
 <instance part="JP4" gate="G$1" x="-165.1" y="93.98"/>
 <instance part="GND1" gate="1" x="-12.7" y="91.44"/>
+<instance part="LED4" gate="G$1" x="96.52" y="-76.2" rot="R270"/>
+<instance part="GND3" gate="1" x="88.9" y="-81.28"/>
+<instance part="R1" gate="G$1" x="106.68" y="-76.2" rot="MR180"/>
 </instances>
 <busses>
 </busses>
@@ -8404,6 +8410,12 @@ SMT header is CONN-09042.</description>
 <pinref part="LED2" gate="G$1" pin="C"/>
 <wire x1="-12.7" y1="101.6" x2="-12.7" y2="93.98" width="0.1524" layer="91"/>
 <pinref part="GND1" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="LED4" gate="G$1" pin="C"/>
+<wire x1="91.44" y1="-76.2" x2="88.9" y2="-76.2" width="0.1524" layer="91"/>
+<pinref part="GND3" gate="1" pin="GND"/>
+<wire x1="88.9" y1="-76.2" x2="88.9" y2="-78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="0">
@@ -8467,8 +8479,8 @@ SMT header is CONN-09042.</description>
 </net>
 <net name="N$14" class="0">
 <segment>
-<wire x1="101.6" y1="-63.5" x2="101.6" y2="-86.36" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="-86.36" x2="119.38" y2="-86.36" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-66.04" x2="81.28" y2="-86.36" width="0.1524" layer="91"/>
+<wire x1="81.28" y1="-86.36" x2="119.38" y2="-86.36" width="0.1524" layer="91"/>
 <pinref part="U15" gate="G$1" pin="RF_IN"/>
 <pinref part="U17" gate="G$1" pin="SIGNAL"/>
 </segment>
@@ -8476,8 +8488,13 @@ SMT header is CONN-09042.</description>
 <net name="GPS_FIX" class="0">
 <segment>
 <pinref part="U15" gate="G$1" pin="UI_FIX"/>
-<wire x1="119.38" y1="-68.58" x2="109.22" y2="-68.58" width="0.1524" layer="91"/>
 <label x="109.22" y="-68.58" size="1.778" layer="95"/>
+<wire x1="119.38" y1="-68.58" x2="114.3" y2="-68.58" width="0.1524" layer="91"/>
+<pinref part="R1" gate="G$1" pin="2"/>
+<wire x1="114.3" y1="-68.58" x2="109.22" y2="-68.58" width="0.1524" layer="91"/>
+<wire x1="111.76" y1="-76.2" x2="114.3" y2="-76.2" width="0.1524" layer="91"/>
+<wire x1="114.3" y1="-76.2" x2="114.3" y2="-68.58" width="0.1524" layer="91"/>
+<junction x="114.3" y="-68.58"/>
 </segment>
 <segment>
 <pinref part="JP4" gate="G$1" pin="12"/>
@@ -8618,6 +8635,13 @@ SMT header is CONN-09042.</description>
 <pinref part="R8" gate="G$1" pin="1"/>
 <wire x1="2.54" y1="116.84" x2="15.24" y2="116.84" width="0.1524" layer="91"/>
 <label x="15.24" y="116.84" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="R1" gate="G$1" pin="1"/>
+<pinref part="LED4" gate="G$1" pin="A"/>
+<wire x1="101.6" y1="-76.2" x2="99.06" y2="-76.2" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
