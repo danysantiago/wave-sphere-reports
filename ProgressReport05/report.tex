@@ -1,0 +1,27 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{res/reportStyle}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{color,colortbl}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\definecolor{Gray}{gray}{0.9}
+
+\newcommand{\paf}{\vspace{-0.45cm}\end{itemize}\\ \hline \multicolumn{1}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
+\newcommand{\myth}[1] {\rowcolor{Gray} #1 \\ \hline \vspace{-0.75cm}\begin{itemize}}
+
+\begin{document}
+
+\input{res/titlePage.tex}
+%S\pagenumbering{roman}
+%\tableofcontents \newpage
+\pagenumbering{arabic}
+
+\input{sec/deliverablesCompletion}
+%\input{sec/schematics}
+\newpage
+\bibliographystyle{ieeetr}
+\bibliography{references}
+\end{document}

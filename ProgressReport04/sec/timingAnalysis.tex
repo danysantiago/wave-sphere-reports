@@ -1,0 +1,44 @@
+\section{Timing Analysis}
+
+Previously, it had been stated that the system was going to use two external crystal oscillators of 38.4kHz and 12MHz. The 12Mhz crystal was added to comply with the USB-to-SD reader specifications.  The 38.4kHz crystal was selected to comply with the frequencies needed for the rest of the communications. In a recent analysis, it was found that the 12MHz crystal generates all the baud rates and frequencies needed for proper operation of the system with 0\% error. For this reason, the system will be operated using only one external crystal of 12MHz instead of the two crystals previously proposed.  A timing analysis showing the requirements and calculations to support this claim follows.
+
+\begin{table}[H]
+  \centering
+  \caption{Components Frequencies}
+    \begin{tabular}{|c|c|c|}
+    \hline
+    \rowcolor{Gray}
+    Component & Protocol & Frequency \\
+    \hline \hline
+    MCU   & -     & 4, 8, 12, or 16 MHz \\ \hline
+    External Crystal & -     & 12.000MHz \\ \hline
+    %ADC   & -     & 200ksps \\ \hline %no se si esto hay q ponerlo...
+    %Accelerometer & Analog & 500Hz \\ \hline
+    Battery Gauge & I$^2$C & 10-100kHz \\ \hline
+    Magnetometer & I$^2$C & 0-100kHz \\ \hline
+    Gyroscope & SPI   & 0-10MHz \\ \hline
+    RF Wakeup & SPI   & 0-2MHz \\ \hline
+    SD card & SPI   & 0-25MHz \\ \hline
+    GPS   & UART  & 9,600 baud \\ \hline
+    Xbee  & UART   & 9,600 baud \\ \hline
+    \end{tabular}%
+  \label{tab:compFreq}%
+\end{table}%
+
+%TODO add to this explanation all the calculations, etc....
+\subsection{Timebases}
+\subsubsection{Real time keeping}
+The 12MHz crystal will be fed to the master clock (MCLK) of the entire system. No other crystal is needed. It will be connected to the high frequency oscillator available in the MSP430FR5969. A divisor of 4 will be used to feed the auxiliary clock (ACLK) with the 12MHz, thus setting it at 3MHz. To achieve a 1Hz signal for timekeeping and logging purposes, two divisors of 8, yielding a total divisor of 64, on a timer which will be fed with the ACLK. This yields a count of 46875, which fits comfortably on a 16 bit counter register. Since this division yields an integer, there will be no error produced if a 12MHz crystal is used.
+
+\subsubsection{UART}
+To yield a 9600 baud rate, a perfect division factor of 1250 on the 12MHz signal is needed. This will yield an effective baud rate of 9600 without needing a fractional divisor, thus it will produce a 0\% error assuming the clock signal carries a 0\% error as well. This division factor can be easily configured through the UART module's registers. Similarly, a baud rate of 19200 can be achieved by using a divisor of 625 without causing any errors. The GPS will always communicating using a 9600 baud rate through software implemented UART, but if the XBee's maximum baud rate of 115200 is ever needed, a division factor of 104.1 is needed. Using the MSPGCCs baud rate calculator, configuring the UART module with a .1 fractional divisor at 12MHz will cause a maximum error of 0.64\%. This error is acceptable for the intended application of the XBee module. Nevertheless, this high speed transfer is not needed and will not be used.
+
+\subsubsection{I$^2$C}
+For I$^2$C communications, a 100kHz clock is needed. To achieve this frequency, either ACLK or MCLK can be used. If ACLK is used, a divisor of 30 is needed. If MCLK is used, a divisor of 120 is needed. Either one will suffice, but for consistency, the MCLK will be used. These divisors can be configured by using the I$^2$C module of the MSP. Since no fractional divisor is needed, an effective error of 0\% is produced.
+
+\subsubsection{SPI}
+For SPI communications, the SD card initially needs a 400kHz clock signal, and up to 25MHz afterwards. Thus, it will be sped up to 12MHz after the initial handshake. To produce a 400kHz signal, a divisor of 30 is needed on the MCLK. The RF wakeup module, on the other hand, can support a maximum frequency of 2MHz. A 1MHz signal will be used. This requires a divisor of 12 for the MCUs SPI logic. Since no fractional divisors will be needed, and effective error of 0\% will be produced. These divisors can be easily configured using the SPI module's registers and additionally, when communicating with multiple devices, the divisors can be changed accordingly.
+
+\subsubsection{USB card reader}
+For the USB card reader circuit, a clock of 12MHz is required. The MCLK will be fed to the sub-main clock (SMCLK) and this clock will be outputted through a GPIO port to the USB card reader.
+
