@@ -31,9 +31,9 @@
 %\input{sec/theoreticalBackground}
 
 %\input{sec/systemOverview}
-\input{sec/blockDiagram}
+\input{sec/blockDiagram} %Done
 \input{sec/powerAnalysis} %Done
-%\input{sec/timingAnalysis}
+\input{sec/timingAnalysis}
 %\input{sec/memoryUsage}
 %\input{sec/hwReliability}
 %\input{sec/hwLevelOfCompletion}
@@ -79,18 +79,8 @@
 \renewcommand*{\thepage}{\thesection-\arabic{page}}
 
 
-\begin{customAppendixPage}{Extended Power Analysis}
-This section contains a more detailed explanation of how the battery life was estimated.  It includes the assumptions made to generate the activity factors.  In addition, it includes a thorough description of the calculations made in the thermal analysis.
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
 \include{sec/extendedPowerAnalysis}
-
-
-
-\begin{customAppendixPage}{Work Distribution}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
+\include{sec/workDistribution}
 
 
 

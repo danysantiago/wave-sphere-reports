@@ -1,5 +1,11 @@
+\begin{customAppendixPage}{Extended Power Analysis}
 \label{sec:extendedPowerAnalysis}
-\todo[inline]{Add Level Shifters and recalculate power.  See if we can find a chart of Charge vs Voltage to determine the lower level of available charge to get a more real estimate}
+This section contains a more detailed explanation of how the battery life was estimated.  It includes the assumptions made to generate the activity factors.  In addition, it includes a thorough description of the calculations made in the thermal analysis.
+
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+
+\todo[inline]{Add Level Shifters and recalculate power.  See if we can find a chart of Charge vs Voltage to determine the lower level of available charge to get a more real estimate.  Should re-check MCU pins}
 \subsection{Battery Life Estimate}
 In order to estimate the battery life, the average supply current was determined by using a weighted average based on the fraction of time each component is active.  The weighted average formula used was: $I_{avg} = \alpha * I_{active} + (1 - \alpha) * I_{LPM}$, where $\alpha$ is the activity factor or the fraction of time the component is active.  The following assumptions were made when determining the activity factor.
 
@@ -72,7 +78,7 @@ Although no information is available for the $\theta_{JA}$ of the MSP430FR5969, 
 In full drive mode, the MSP430F5510 can output upto 45mA through its IO pins while still maintaining a valid $V_{OL}$.    Table \ref{tab:ioCurrents} shows the assumed IO currents for each components.
 \begin{table}[H]
   \centering
-  \caption{Worst Case IO current for pins}
+  \caption{Worst Case I/O current for microcontroller pins}
     \begin{tabular}{|c|c|c|c|}
      \hline
      \rowcolor{Gray}
