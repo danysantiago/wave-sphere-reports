@@ -58,14 +58,21 @@ With this analysis, one can conclude that all ICs can drive their respective loa
 
 \subsection{Power Supply Design}
 In order to design the power supply that will be used by the system, the worst case quiescent current of each component should be taken into account.  Although not all components will be operating at the same time, it is ensured that the system will continue to function properly for the worst possible case by performing the analysis in this manner.  To ensure proper operation of the system, the Low-Dropout Regulator (LDO) must supply enough current for the entire system.  Table \ref{tab:powerSupply} shows a list of components along with the worst case quiescent current of each of them.  By adding all the current, a maximum current consumption of 181 mA was determined.  The LDO is rated for a maximum output of 500 mA, which is well above the determined usage.  In order to complete the power supply circuit, a USB Battery Charger and a Battery Meter were added as well. Note that since the level shifters are powered by the 2.5V regulated output of the Battery Meter, they have not been included in these calculations.
-\begin{table}[H]
-  \centering
-  \caption{Worst Case Quiescent Currents for components}
-    \begin{tabular}{|c|c|}
+\begin{center}
+    \begin{longtable}{|c|c|}
+    \caption{Worst Case Quiescent Currents for components  \label{tab:powerSupply}} \\
      \hline
-     \rowcolor{Gray}
-    Component & $I_{DD(Active)}$ ($\mu$A) \\
-     \hline \hline
+    \rowcolor{Gray}
+   Component & $I_{DD(Active)}$ ($\mu$A) \\
+    \hline \hline \endfirsthead
+    
+         \hline
+    \rowcolor{Gray}
+  Component & $I_{DD(Active)}$ ($\mu$A) \\
+    \hline \hline \endhead
+    
+    \endfoot
+
     MSP430FR5969 & 1600   \\ \hline
     3-Axis Accelerometer & 300  \\ \hline
     Magnetometer & 110  \\ \hline
@@ -80,9 +87,10 @@ In order to design the power supply that will be used by the system, the worst c
     Battery Charger & 1500  \\ \hline
     Battery Meter & 103   \\ \hline \hline
     Total & 180958.7  \\ \hline     
-    \end{tabular}%
-  \label{tab:powerSupply}%
-\end{table}%
+    \end{longtable}%
+
+\end{center}%
+  \vspace{-2cm}
 
 \subsection{Thermal Analysis}
 A thorough thermal analysis was performed on the MCU and all the power management ICs to determine whether they would exceed the thermal limits of their package under regular operation in our system.  The expected operating junction temperature was calculated using the junction-to-ambient thermal resistance and the power dissipated by each IC.  It was determined that no additional heat dissipation technique as needed to guarantee the proper operation of the ICs since all the calculated junction temperatures were well below the maximum operating junction temperature specified in the manufacturer's datasheets.  The thorough and detailed analysis can be found in Appendix \ref{sec:extendedPowerAnalysis}.

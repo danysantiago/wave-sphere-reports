@@ -1,26 +1,32 @@
 \section{System Overview}
-
-
-The proposed system consists of a Graphical User Interface (GUI) that will be on a laptop and up to five 7.5cm spheres.  Figure~\ref{fig:GSV2} shows an idea of how experiments will be conducted by researchers using this system.  As it shows, they will have a laptop with the necessary hardware and software on a jet ski and at least one sphere to throw into the water.  Their current experimental setup allows for a computer to reside on the jet ski they use to deploy the spheres without risking water damage.  Although this project will focus on building only one sphere, the base station will be able to handle multiple spheres, at least five, at once.  The base station should have the capability of connecting with multiple spheres and working with them individually.
+The proposed system consists of two parts, a spherical drifter which will be deployed right into the waves and a base station that will be used to control the drifters.  The researchers that will use the drifters to conduct their experiments will use a personal watercraft (PWC) to deploy the drifters at the point where the wave breaks and retrieve them after the experiment has concluded. Figure~\ref{fig:systemOverview} shows the scenario of a single experiment.  The base station will reside in the PWC and the researchers will throw the drifters into an emerging wave so that when it breaks the drifter is already recording data from the sensors.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{img/GSV2}
-	\caption{A rough model of the interaction between the base and multiple spheres. \label{fig:GSV2}}
+	\includegraphics[width=\textwidth]{img/systemOverview}
+	\caption{A graphical depiction of the deployment process of the drifters. Image adapted from \cite{boaterExam}. \label{fig:systemOverview}}
 \end{figure}
 
-Figure~\ref{fig:GSV3} gives a closer look to the interaction between spheres and the base station software.  It shows a software prototype that will be in charge of controlling the necessary hardware in order to communicate with the spheres and perform the necessary tasks such as transfer data from spheres, locate a sphere, reset a sphere or turn off a sphere.  Note that this is a GUI prototype and might be missing some functionality that will form part of this project final system software.  
+\subsection{Drifters}
+\subsection{Base Station}
+The base station consists of a computer
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{img/GSV3}
-	\caption{A closer look at the interaction between the base and the spheres. \label{fig:GSV3}}
-\end{figure}
+%The proposed system consists of a Graphical User Interface (GUI) that will be on a laptop and up to five 7.5cm spheres.  Figure~\ref{fig:GSV2} shows an idea of how experiments will be conducted by researchers using this system.  As it shows, they will have a laptop with the necessary hardware and software on a jet ski and at least one sphere to throw into the water.  Their current experimental setup allows for a computer to reside on the jet ski they use to deploy the spheres without risking water damage.  Although this project will focus on building only one sphere, the base station will be able to handle multiple spheres, at least five, at once.  The base station should have the capability of connecting with multiple spheres and working with them individually.
 
-Finally, Figure~\ref{fig:sphere} shows the concept how the sphere will look like.  A PCB board containing all the necessary hardware will be located axisymmetrically inside the sphere.  This board will be adhered to the sphere such that the hardware does not move freely inside the sphere during the experiments.  Internal designs for mounting components inside the sphere are still being developed and considered as they depend highly on the battery charging methods described in Section~\ref{sec:chargingMethods}.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.6]{img/Sphere_001}
-	\caption{Rough model of hardware inside the sphere. \label{fig:sphere}}
-\end{figure}
+
+%Figure~\ref{fig:GSV3} gives a closer look to the interaction between spheres and the base station software.  It shows a software prototype that will be in charge of controlling the necessary hardware in order to communicate with the spheres and perform the necessary tasks such as transfer data from spheres, locate a sphere, reset a sphere or turn off a sphere.  Note that this is a GUI prototype and might be missing some functionality that will form part of this project final system software.  
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.9\textwidth]{img/GSV3}
+%	\caption{A closer look at the interaction between the base and the spheres. \label{fig:GSV3}}
+%\end{figure}
+
+%Finally, Figure~\ref{fig:sphere} shows the concept how the sphere will look like.  A PCB board containing all the necessary hardware will be located axisymmetrically inside the sphere.  This board will be adhered to the sphere such that the hardware does not move freely inside the sphere during the experiments.  Internal designs for mounting components inside the sphere are still being developed and considered as they depend highly on the battery charging methods described in Section~\ref{sec:chargingMethods}.
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[scale=0.6]{img/Sphere_001}
+%	\caption{Rough model of hardware inside the sphere. \label{fig:sphere}}
+%\end{figure}
