@@ -29,22 +29,23 @@ Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader
     \hline \hline \endhead
     
     \endfoot
-    MCU   & -     & 4, 8, or 16 MHz \\ \hline
-    Crystal 1 & -     & 38.400kHz \\ \hline
-    Crystal 2 & -     & 12.000MHz \\ \hline
-    ADC   & -     & 200ksps \\ \hline
+    MCU   & -     & 4, 8, 12, or 16 MHz \\ \hline
+    %External Crystal & -     & 12.000MHz \\ \hline
+    ADC   & -     & 200ksps \\ \hline %no se si esto hay q ponerlo...
     Accelerometer & Analog & 500Hz \\ \hline
     Battery Gauge & I$^2$C & 10-100kHz \\ \hline
     Magnetometer & I$^2$C & 0-100kHz \\ \hline
     Gyroscope & SPI   & 0-10MHz \\ \hline
     RF Wakeup & SPI   & 0-2MHz \\ \hline
     SD card & SPI   & 0-25MHz \\ \hline
-    Xbee  & SPI   & 0-5MHz \\ \hline
     GPS   & UART  & 9,600 baud \\ \hline
+    Xbee  & UART   & 9,600 baud \\ \hline
     \end{longtable}%
 
 \end{center}%
   \vspace{-2cm}
+  
+  
   
 \subsection{Point-to-point communication}
 This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. Unfortunately, many manufacturers do not specify these values in the device data sheets. Experiments on signal timing will be performed on such devices, and a 10\% error will be added to ensure compatibility.
