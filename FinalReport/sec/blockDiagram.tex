@@ -1,11 +1,11 @@
 \section{Block Diagram}
 
-Figure~\ref{fig:blockDiagram} shows a revised system block diagram.  It contains the model numbers of the known components, the types of connections required to the microcontroller unit (MCU) and the amount of lines needed for each connection.
+Figure~\ref{fig:drifterBlockDiagram} shows the block diagram for each of the drifters while Figure~\ref{fig:baseBlockDiagram} shows the block diagram for the base station.  Both diagrams contain the model numbers of the components and, in the case of the drifter block diagram, the types of connections required to the microcontroller unit (MCU) and the amount of lines needed for each connection.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.95\textwidth]{img/blockDiagram}
-	\caption{Revised Block Diagram \label{fig:blockDiagram}}
+	\caption{Block Diagram for the Drifter \label{fig:drifterBlockDiagram}}
 \end{figure}
 
 \begin{enumerate}
@@ -27,12 +27,27 @@ Figure~\ref{fig:blockDiagram} shows a revised system block diagram.  It contains
 
 \item \textbf{SD Card and SD to USB Converter} - The SD Card is used to save the data captured by the sensors during an experiment.  The SD to USB converter will be used to allow the drifter to function as a mass storage device when connected to a Host computer via USB.
 
-\item \textbf{XBee Module} - Used to connect the spheres with a central base so that data can be retrieved without having to open the spheres.
+\item \textbf{XBee ZB Module} - Used to connect the spheres with a central base so that data can be retrieved without having to open the spheres.
 
 
 \item \textbf{RF Wakeup Module} - Used to wirelessly wake up the drifter from low power mode via an RF signal.
 
 \end{enumerate}
 
-%TODO
-\todo[inline]{Add Block Diagram for Base Station}
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1]{img/baseBlockDiagram}
+	\caption{Block Diagram for the Base Station \label{fig:baseBlockDiagram}}
+\end{figure}
+
+\begin{enumerate}
+\item \textbf{XBee ZB Module} -  Used to communicate with the drifters in order to send commands to switch operating modes and retrieve collected data.
+
+\item \textbf{RFID Reader} - Used to generate the 125kHz signal required by the RF Wakeup module in the drifters to wake them up from low power mode.
+
+\item \textbf{Computer} - Used to run a custom application that will be used to send commands and data to the drifters through the XBee.  A USB port in the computer will power the other devices in the base station.
+
+\item \textbf{Power Management Circuit} - Composed of an LDO, a battery charger and a battery meter.  It is used to regulate the power provided by the battery, re-charge the battery once it has been depleted and to measure the amount of charge left on the battery.
+
+
+\end{enumerate}
