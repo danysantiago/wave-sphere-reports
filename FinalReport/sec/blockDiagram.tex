@@ -8,68 +8,31 @@ Figure~\ref{fig:blockDiagram} shows a revised system block diagram.  It contains
 	\caption{Revised Block Diagram \label{fig:blockDiagram}}
 \end{figure}
 
-%TODO
-\todo[inline]{Convert into a shorter paragraph}
-
 \begin{enumerate}
-\item Microcontroller
-	\begin{itemize}
-		\item The microcontroller is needed in order to be able to establish the communication between components, control the different components, and process the output of the sensors.
-	\end{itemize}
+\item \textbf{Microcontroller} -  Needed in order to be able to control and establish the communication between components as well as process the output of the sensors.
 
-\item Battery
-	\begin{itemize}
-		\item A battery is needed because the sphere has to be portable and it is the only way to provide the necessary power.
-	\end{itemize}
+\item \textbf{Battery} - Required to provide the necessary power to the drifters because the electrical components are enclosed by a sphere.
 
-\item Power Conversion and Management Circuit
-	\begin{itemize}
-		\item Power Conversion and Management is needed in order to give the necessary and adequate power to each component so that they can work properly and efficiently.  It contains voltage converters and a battery meter.
-	\end{itemize}
-\item GPS Module
-\begin{itemize}
-\item A GPS Module is needed in order to know the precise location of the spheres when the user has to recover them after they have been thrown at sea for an experiment.
-\end{itemize}
-\item Gyroscope
-\begin{itemize}
-\item The gyroscope will be used to determine the sphere's orientation while being carried by a wave.
-\end{itemize}
-\item LED
-\begin{itemize}
-\item An LED will be used to help the user find the sphere when conducting experiments at night and to indicate battery and data transfer status.
-\end{itemize}
-\item Light Sensor
-\begin{itemize}
-\item A light sensor will be used in order to only turn on the LED at night to conserve energy.  The LEDs will still display battery and transfer status, but will not flash continuously as would be the case with the LED that aids in finding the spheres at night.
-\end{itemize}
-\item Real Time Clock
-\begin{itemize}
-\item A Real Time Clock is needed in this system in order to track and record the time at which each sample measurement is taken in order to be able to match it with the measurements taken by different spheres.
-\end{itemize}
-\item Accelerometer
-\begin{itemize}
-\item The accelerometer will be used to measure the acceleration of the sphere while being carried by the waves.
-\end{itemize}
-\item Analog to Digital Converter (ADC)
-\begin{itemize}
-\item An ADC is needed in order to take the data from the acceleratometer, which has an analog output, and convert it to digital signals so that the microcontroller can read them.
-\end{itemize}
-\item SD Card
-\begin{itemize}
-\item The SD Card will be used to save the data measured during an experiment.
-\end{itemize}
-\item Wireless Module
-\begin{itemize}
-\item The wireless module will be used to connect the spheres with a central base so that data can be retrieved without having to open the spheres.
-\end{itemize}
-\item Computer Interface
-\begin{itemize}
-\item A computer interface is needed in order to be able to wirelessly retrieve the data collected via wireless and save it for future analysis. 
-\end{itemize}
+\item \textbf{Power Management Circuit} - Composed of an LDO, a battery charger and a battery meter.  It is used to regulate the power provided by the battery, re-charge the battery once it has been depleted and to measure the amount of charge left on the battery.
 
-\item Magnetometer
-\begin{itemize}
-\item Provides the extra 3 degrees of freedom that the researchers need in order to employ dead reckoning algorithms \cite{Canals2012}.
-\end{itemize}
+\item \textbf{GPS Module} - Needed in order to know the precise location of the drifters when the user has to recover them after they have been thrown at sea for an experiment.
+
+\item \textbf{Gyroscope} - Used to determine the rate of change of the orientation of the drifter while being carried by a wave.
+
+\item \textbf{Accelerometer} - Used to measure the acceleration of the drifter while being carried by the waves.
+
+\item \textbf{Magnetometer} - Used to determine the orientation of the drifter with respect to the Earth's magnetic north while it is being carried by a wave.
+
+\item \textbf{Analog to Digital Converter (ADC)} - Needed in order to take the data from the accelerometer, which has an analog output, and convert it to digital signals so that the MCU can read them.  It is integrated within the MCU.
+
+\item \textbf{SD Card and SD to USB Converter} - The SD Card is used to save the data captured by the sensors during an experiment.  The SD to USB converter will be used to allow the drifter to function as a mass storage device when connected to a Host computer via USB.
+
+\item \textbf{XBee Module} - Used to connect the spheres with a central base so that data can be retrieved without having to open the spheres.
+
+
+\item \textbf{RF Wakeup Module} - Used to wirelessly wake up the drifter from low power mode via an RF signal.
+
 \end{enumerate}
 
+%TODO
+\todo[inline]{Add Block Diagram for Base Station}

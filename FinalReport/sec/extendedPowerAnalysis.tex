@@ -1,3 +1,58 @@
+\label{sec:extendedPowerAnalysis}
+\todo[inline]{Add Level Shifters and recalculate power.  See if we can find a chart of Charge vs Voltage to determine the lower level of available charge to get a more real estimate}
+\subsection{Battery Life Estimate}
+In order to estimate the battery life, the average supply current was determined by using a weighted average based on the fraction of time each component is active.  The weighted average formula used was: $I_{avg} = \alpha * I_{active} + (1 - \alpha) * I_{LPM}$, where $\alpha$ is the activity factor or the fraction of time the component is active.  The following assumptions were made when determining the activity factor.
+
+\begin{itemize}
+\item The drifters will spend 10 minutes in ``Locate Mode" before they are retrieved from the water.
+\item The drifters will spend 30 seconds in sampling mode.
+\item The drifters will spend 3 minutes in stand-by mode before they are deployed.
+\item The drifters will spend about 10 seconds transferring a single data file.  The following assumptions were made to determine this time:
+	\begin{itemize}
+		\item File Size: 200 kB * 8 = 16,000 kbits.
+		\item 80\% of XBee maximum Speed: 250 kbps * 80\% = 200 kbps.
+		\item 16,000 kbits / 200 kbps = 8 seconds, which can be rounded up to 10 seconds.
+	\end{itemize}
+\end{itemize}
+
+
+Table \ref{tab:batLife} shows a list of the components along with their active and low power mode supply current, determined activity factor, and weighted average supply current.  It also shows the total average current consumption of the system which was determined to be  around 70 mA.  This means that a chosen 500 mAh battery will last for about 7.23 hours.  Based on the current assumptions, a single throw or experiment will last for about 13.66 minutes, which means that the drifters will be able to perform at least 30 experiment trials under the current assumptions.
+\begin{center}
+ \begin{longtable}{|c|c|c|c|c|}
+    \caption{Activity Factors Used to Estimate Battery Life  \label{tab:batLife}} \\
+     \hline
+    \rowcolor{Gray}
+    Component & $I_{DD(Active)}$ ($\mu$A) & $I_{DD(LPM)}$ ($\mu$A) & Activity Factor & $I_{DD(AVG)}$ ($\mu$A) \\
+    \hline \hline \endfirsthead
+    
+         \hline
+   \rowcolor{Gray}
+    Component & $I_{DD(Active)}$ ($\mu$A) & $I_{DD(LPM)}$ ($\mu$A) & Activity Factor & $I_{DD(AVG)}$ ($\mu$A) \\
+    \hline \hline \endhead
+    
+    \endfoot
+
+    \multicolumn{5}{|c|}{\cellcolor{Gray}Connected To LDO} \\ \hline
+    MSP430FR5969 & 1600  & 0.5   & 78.05\% & 1248.91 \\ \hline
+    3-Axis Accelerometer & 300   & 0     & 3.66\% & 10.98 \\ \hline
+    Magnetometer & 110   & 1     & 3.66\% & 4.9894 \\ \hline
+    XBee  & 45000 & 0.5   & 96.34\% & 43353.02 \\ \hline
+    RF Wakeup & 2.7   & 0.4   & 0.00\% & 0.4 \\ \hline
+    Gyroscope & 6100  & 5     & 3.66\% & 228.077 \\ \hline
+    GPS   & 26140 & 5     & 73.17\% & 19127.98 \\ \hline
+    SD Card & 100000 & 10    & 4.88\% & 4889.512 \\ \hline
+    Power switch & 1     & 0.3   & 3.66\% & 0.32562 \\ \hline
+    SD to USB & 37    & 1     & 100.00\% & 37 \\ \hline
+    \multicolumn{5}{|c|}{\cellcolor{Gray}Connected Directly to Battery} \\ \hline
+    LDO   & 65    & 1     & 100.00\% & 65 \\ \hline
+    Battery Charger & 1500  & 6.5   & 0.00\% & 6.5 \\ \hline
+    Battery Meter & 103   & 4     & 100.00\% & 103 \\ \hline \hline
+    Total & 180958.7 & 35.2  &    -   & 69075.69 \\ \hline \hline
+    Battery Capacity &   500 mAh    &      \multicolumn{2}{c|}{Hours of Use per battery charge} & 7.238436 \\ \hline
+    Est. time per throw (min) & 13.66 mins  &    \multicolumn{2}{c|}{Throws per charged battery} & 31.7785 \\ \hline
+    \end{longtable}%
+\end{center}%
+
 \subsection{Thermal Analysis}
 Performing a thermal analysis on the system will reveal whether the operating temperature of the individual ICs is below their maximum rating.  In order to perform this analysis, the junction temperature $T_J$ will be calculated for the MCU and the power management ICs.  The junction temperature is given by \cite[419]{Jimenez2013}:
 
