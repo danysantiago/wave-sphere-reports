@@ -28,12 +28,12 @@ Table \ref{tab:batLife} shows a list of the components along with their active a
     \caption{Activity Factors Used to Estimate Battery Life  \label{tab:batLife}} \\
      \hline
     \rowcolor{Gray}
-    Component & $I_{DD(Active)}$ ($\mu$A) & $I_{DD(LPM)}$ ($\mu$A) & Activity Factor & $I_{DD(AVG)}$ ($\mu$A) \\
+    Component & $I_{Active}$ ($\mu$A) & $I_{LPM}$ ($\mu$A) &  $\alpha$ & $I_{AVG}$ ($\mu$A) \\
     \hline \hline \endfirsthead
     
          \hline
    \rowcolor{Gray}
-    Component & $I_{DD(Active)}$ ($\mu$A) & $I_{DD(LPM)}$ ($\mu$A) & Activity Factor & $I_{DD(AVG)}$ ($\mu$A) \\
+    Component & $I_{Active}$ ($\mu$A) & $I_{LPM}$ ($\mu$A) &  $\alpha$ & $I_{AVG}$ ($\mu$A) \\
     \hline \hline \endhead
     
     \endfoot
@@ -54,8 +54,8 @@ Table \ref{tab:batLife} shows a list of the components along with their active a
     Battery Charger & 1500  & 6.5   & 0.00\% & 6.5 \\ \hline
     Battery Meter & 103   & 4     & 100.00\% & 103 \\ \hline \hline
     Total & 180958.7 & 35.2  &    -   & 69075.69 \\ \hline \hline
-    Battery Capacity &   500 mAh    &      \multicolumn{2}{c|}{Hours of Use per battery charge} & 7.238436 \\ \hline
-    Est. time per throw (min) & 13.66 mins  &    \multicolumn{2}{c|}{Throws per charged battery} & 31.7785 \\ \hline
+    \cellcolor{Gray}Battery Capacity &   500 mAh    &      \multicolumn{2}{c|}{\cellcolor{Gray}Hours of Use per charge} & 7.238436 \\ \hline
+    \cellcolor{Gray}Est. time per throw (min) & 13.66 mins  &    \multicolumn{2}{c|}{\cellcolor{Gray}Throws per charge} & 31.7785 \\ \hline
     \end{longtable}%
 \end{center}%
 

@@ -9,7 +9,12 @@
 \usepackage{amsmath}
 \usepackage{todonotes}
 \definecolor{Gray}{gray}{0.9}
+\newcommand{\swpaf}{\vspace{-0.45cm}\end{itemize}\\ \hline \multicolumn{1}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
+\newcommand{\swmyth}[1] {\rowcolor{Gray} #1 \\ \hline \vspace{-0.75cm}\begin{itemize}}
 
+\newcommand{\hwpaf}{%\vspace{-0.45cm}\end{itemize}\\ 
+\hline \multicolumn{2}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
+\newcommand{\hwmyth}[1] {\multicolumn{3}{|l|}{\cellcolor{Gray} #1} \\ \hline \vspace{-0.75cm}\begin{itemize}}
 \begin{document}
 
 \input{res/titlePage.tex}
@@ -27,62 +32,38 @@
 \listoftables \newpage
 \pagenumbering{arabic}
 
-\input{sec/introduction}
-%\input{sec/theoreticalBackground}
+\input{sec/introduction} %Done
+\input{sec/theoreticalBackground}
 
-\input{sec/systemOverview}
+\input{sec/systemOverview} %Done
 \input{sec/blockDiagram} %Done
 \input{sec/powerAnalysis} %Done
 \input{sec/timingAnalysis}
 %\input{sec/memoryUsage}
-%\input{sec/hwReliability}
-%\input{sec/hwLevelOfCompletion}
+\input{sec/hwReliability}
+\input{sec/hwLevelOfCompletion} %Done
 
-%TODO Missing SW sections
+
+\input{sec/operatingChart}
+%\input{sec/swOrganization}
+%\input{sec/swReliability}
+\input{sec/swLevelOfCompletion} %Done
 
 %\input{sec/conclusion}
-%\input{sec/futureWork}
+\input{sec/futureWork} %Done
+
 \bibliographystyle{ieeetr}
 \bibliography{references}
-
-
 
 \appendix
 \addappheadtotoc
 
-\begin{customAppendixPage}{System Specifications}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
-
-
-\begin{customAppendixPage}{System Schematics}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
-
-
-\begin{customAppendixPage}{Component Layout}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
-
-
-\begin{customAppendixPage}{User Guide}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
-
-\begin{customAppendixPage}{Bill of Materials}
-\lipsum[1]
-\end{customAppendixPage}
-\renewcommand*{\thepage}{\thesection-\arabic{page}}
-
-
-\include{sec/extendedPowerAnalysis}
+%\include{sec/systemSpecs}
+\include{sec/usersGuide}
+%\include{sec/schematics}
+%\include{sec/componentLayout}
+\include{sec/extendedPowerAnalysis} %Done
+%\include{sec/bom}
 \include{sec/workDistribution}
-
-
-
 
 \end{document}

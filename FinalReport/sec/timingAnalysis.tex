@@ -1,10 +1,10 @@
 \section{Timing Analysis}
 %TODO
-\todo[inline]{Old timing analysis, copied because it had a good format, however must be updated with the new information.  Need help from Samuel}
+\todo[inline]{Old timing analysis, copied because it had a good format, however must be updated with the new information.  Need help from Samuel. Must add information on SW UART}
 The timing analysis consists of three main parts: Time bases, Point-to-point communication, and analog considerations. The purpose of this analysis is to ensure that no signal is transmitted at a faster frequency than the one its receiver can read, thus guaranteeing communications functionality and interoperability between all components and the MCU.
 
 \subsection{Time bases}
-This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 256Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I$^2$C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will be communicating at a 9600 baud rate and tolerates a 10\% error.
+This section compares the maximum external clock frequencies of all components and their communication ports to make sure that no component will be overclocked by the MCU and that all synchronous communication can be performed at the speed of the MCU's clock. Table \ref{tab:compFreq} shows the frequency specifications for the components.  Since the sample frequency will be a relatively low 250Hz, there is complete compatibility between the MCU and all components. The MCU can run at a clock frequency of up to 16MHz. For I$^2$C communications, the standard of 10-100kHz will be used, since all components are compatible with it. For SPI communications, a rate of up to 2MHz can be used, since the slowest device, the RF wakeup receiver, operates at this frequency. The only component that will be communicating with the MCU through UART is the GPS receiver, which will be communicating at a 9600 baud rate and tolerates a 10\% error.
 
 \paragraph{Timers}
 
@@ -47,20 +47,20 @@ Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader
   \vspace{-2cm}
   
 \subsection{Point-to-point communication}
-This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table \ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, including UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. Unfortunately, many manufacturers do not specify these values in the device data sheets. Experiments on signal timing will be performed on such devices, and a 10\% error will be added to ensure compatibility.
+This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table~\ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, such as UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. 
 
 \begin{center}
     \begin{longtable}{|c|p{3in}|}
-    \caption{Compnent Timing Requirements  \label{tab:timeReqs}} \\
+    \caption{Signal Timing Requirements of Components  \label{tab:timeReqs}} \\
      \hline
     \rowcolor{Gray}
    Signal  & Time Required \\
-    \hline \hline \endfirsthead
+    \hline \endfirsthead
     
          \hline
     \rowcolor{Gray}
     Signal  & Time Required \\
-    \hline \hline \endhead
+    \hline \endhead
     
     \endfoot
 
