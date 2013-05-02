@@ -17,7 +17,7 @@ Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader
 
 \begin{center}
     \begin{longtable}{|c|c|c|}
-    \caption{Compnent Operating Frequencies  \label{tab:compFreq}} \\
+    \caption{Component Operating Frequencies  \label{tab:compFreq}} \\
      \hline
     \rowcolor{Gray}
    Component & Protocol & Frequency \\
@@ -29,29 +29,34 @@ Additionally, a 12MHz crystal was added to comply with the USB-to-SD card reader
     \hline \hline \endhead
     
     \endfoot
-    MCU   & -     & 4, 8, or 16 MHz \\ \hline
-    Crystal 1 & -     & 38.400kHz \\ \hline
-    Crystal 2 & -     & 12.000MHz \\ \hline
-    ADC   & -     & 200ksps \\ \hline
+    MCU   & -     & 4, 8, 12, or 16 MHz \\ \hline
+    %External Crystal & -     & 12.000MHz \\ \hline
+    ADC   & -     & 200ksps \\ \hline %no se si esto hay q ponerlo...
     Accelerometer & Analog & 500Hz \\ \hline
     Battery Gauge & I$^2$C & 10-100kHz \\ \hline
     Magnetometer & I$^2$C & 0-100kHz \\ \hline
     Gyroscope & SPI   & 0-10MHz \\ \hline
     RF Wakeup & SPI   & 0-2MHz \\ \hline
     SD card & SPI   & 0-25MHz \\ \hline
-    Xbee  & SPI   & 0-5MHz \\ \hline
     GPS   & UART  & 9,600 baud \\ \hline
+    Xbee  & UART   & 9,600 baud \\ \hline
     \end{longtable}%
 
 \end{center}%
   \vspace{-2cm}
   
+  
+  
 \subsection{Point-to-point communication}
 This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table~\ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, such as UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. 
 
+
+%TODO
+\todo[inline]{need to update to add missing signals and remove the ones not being used}
 \begin{center}
     \begin{longtable}{|c|p{3in}|}
     \caption{Signal Timing Requirements of Components  \label{tab:timeReqs}} \\
+
      \hline
     \rowcolor{Gray}
    Signal  & Time Required \\
@@ -76,7 +81,7 @@ This section outlines the minimum requirements for timing signals of the devices
     SU\_BERR (!BERR/INT) & Low when error occurs, stays until error is cleared \\ \hline
     SU\_BUSY (!BUSY) & $>$100ms to complete enumeration/de-enumeration \\ \hline
     SU\_MODE (MODE) & Active during simple control \\ \hline
-    XB\_CS (SPI\_!SSEL) & Not specified \\ \hline
+    %XB\_CS (SPI\_!SSEL) & Not specified \\ \hline %signal not needed anymore
     XB\_DR (!DTR/SLEEP) & Not specified \\ \hline
     XB\_SLEEP (ON/!SLEEP) & Not specified \\ \hline
     \end{longtable}%
