@@ -8850,6 +8850,8 @@ Low profile connectors, straight&lt;p&gt;
 <part name="U12" library="Micro2" deviceset="SN74CB3T1G125_DCK_5" device=""/>
 <part name="GND12" library="supply1" deviceset="GND" device=""/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
+<part name="VDD6" library="supply1" deviceset="VCC" device=""/>
+<part name="GND14" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -8956,6 +8958,8 @@ Low profile connectors, straight&lt;p&gt;
 <instance part="U12" gate="A" x="-50.8" y="48.26"/>
 <instance part="GND12" gate="1" x="-35.56" y="58.42"/>
 <instance part="GND13" gate="1" x="-35.56" y="38.1"/>
+<instance part="VDD6" gate="VCC" x="-30.48" y="12.7" rot="MR0"/>
+<instance part="GND14" gate="1" x="-30.48" y="-7.62"/>
 </instances>
 <busses>
 <bus name="I2CDAT,I2CCLK">
@@ -8968,7 +8972,7 @@ Low profile connectors, straight&lt;p&gt;
 </bus>
 <bus name="SPI_CLK,SPI_MOSI,SPI_MISO">
 <segment>
-<wire x1="-22.86" y1="15.24" x2="-22.86" y2="-86.36" width="0.762" layer="92"/>
+<wire x1="-22.86" y1="2.54" x2="-22.86" y2="-86.36" width="0.762" layer="92"/>
 </segment>
 </bus>
 </busses>
@@ -9272,6 +9276,13 @@ Low profile connectors, straight&lt;p&gt;
 <wire x1="-35.56" y1="45.72" x2="-35.56" y2="40.64" width="0.1524" layer="91"/>
 <junction x="-35.56" y="40.64"/>
 </segment>
+<segment>
+<pinref part="U6" gate="G$1" pin="SDO/SA0"/>
+<wire x1="-40.64" y1="5.08" x2="-33.02" y2="5.08" width="0.1524" layer="91"/>
+<wire x1="-33.02" y1="5.08" x2="-30.48" y2="2.54" width="0.1524" layer="91"/>
+<pinref part="GND14" gate="1" pin="GND"/>
+<wire x1="-30.48" y1="2.54" x2="-30.48" y2="-5.08" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="AGND" class="0">
 <segment>
@@ -9499,6 +9510,13 @@ Low profile connectors, straight&lt;p&gt;
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="5.08" y1="25.4" x2="5.08" y2="22.86" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U6" gate="G$1" pin="CS"/>
+<wire x1="-40.64" y1="2.54" x2="-33.02" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="-33.02" y1="2.54" x2="-30.48" y2="5.08" width="0.1524" layer="91"/>
+<pinref part="VDD6" gate="VCC" pin="VCC"/>
+<wire x1="-30.48" y1="5.08" x2="-30.48" y2="10.16" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="I2CCLK" class="0">
 <segment>
@@ -9525,6 +9543,13 @@ Low profile connectors, straight&lt;p&gt;
 <pinref part="U7" gate="A" pin="A"/>
 <wire x1="-76.2" y1="68.58" x2="-63.5" y2="68.58" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U6" gate="G$1" pin="SCL/SPC"/>
+<wire x1="-40.64" y1="10.16" x2="-38.1" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="-38.1" y1="10.16" x2="-38.1" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="-38.1" y1="27.94" x2="-15.24" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="-12.7" y1="25.4" x2="-15.24" y2="27.94" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="I2CDAT" class="0">
 <segment>
@@ -9550,6 +9575,13 @@ Low profile connectors, straight&lt;p&gt;
 <wire x1="-76.2" y1="60.96" x2="-76.2" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="U12" gate="A" pin="A"/>
 <wire x1="-76.2" y1="48.26" x2="-63.5" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U6" gate="G$1" pin="SDA/SDI/SDO"/>
+<wire x1="-40.64" y1="7.62" x2="-35.56" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-35.56" y1="7.62" x2="-35.56" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="-35.56" y1="25.4" x2="-15.24" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="-12.7" y1="22.86" x2="-15.24" y2="25.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$18" class="0">
@@ -9620,12 +9652,6 @@ Low profile connectors, straight&lt;p&gt;
 <pinref part="U10" gate="G$1" pin="24_P2.0"/>
 </segment>
 <segment>
-<wire x1="-25.4" y1="7.62" x2="-40.64" y2="7.62" width="0.1524" layer="91"/>
-<label x="-38.1" y="7.62" size="1.778" layer="95"/>
-<pinref part="U6" gate="G$1" pin="SDA/SDI/SDO"/>
-<wire x1="-25.4" y1="7.62" x2="-22.86" y2="5.08" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <wire x1="-48.26" y1="-66.04" x2="-27.94" y2="-66.04" width="0.1524" layer="91"/>
 <label x="-25.4" y="-66.04" size="1.778" layer="95" rot="MR0"/>
 <wire x1="-25.4" y1="-66.04" x2="-27.94" y2="-66.04" width="0.1524" layer="91"/>
@@ -9645,13 +9671,6 @@ Low profile connectors, straight&lt;p&gt;
 <label x="-20.32" y="-5.08" size="1.778" layer="95"/>
 <wire x1="-20.32" y1="-5.08" x2="-22.86" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="U10" gate="G$1" pin="25_P2.1"/>
-</segment>
-<segment>
-<wire x1="-25.4" y1="5.08" x2="-38.1" y2="5.08" width="0.1524" layer="91"/>
-<wire x1="-38.1" y1="5.08" x2="-40.64" y2="5.08" width="0.1524" layer="91"/>
-<label x="-38.1" y="5.08" size="1.778" layer="95"/>
-<pinref part="U6" gate="G$1" pin="SDO/SA0"/>
-<wire x1="-25.4" y1="5.08" x2="-22.86" y2="2.54" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <wire x1="-48.26" y1="-68.58" x2="-27.94" y2="-68.58" width="0.1524" layer="91"/>
@@ -9678,12 +9697,6 @@ Low profile connectors, straight&lt;p&gt;
 <pinref part="U10" gate="G$1" pin="11_P1.5"/>
 </segment>
 <segment>
-<wire x1="-25.4" y1="10.16" x2="-40.64" y2="10.16" width="0.1524" layer="91"/>
-<label x="-38.1" y="10.16" size="1.778" layer="95"/>
-<pinref part="U6" gate="G$1" pin="SCL/SPC"/>
-<wire x1="-25.4" y1="10.16" x2="-22.86" y2="7.62" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <wire x1="-48.26" y1="-63.5" x2="-27.94" y2="-63.5" width="0.1524" layer="91"/>
 <label x="-25.4" y="-63.5" size="1.778" layer="95" rot="MR0"/>
 <wire x1="-25.4" y1="-63.5" x2="-27.94" y2="-63.5" width="0.1524" layer="91"/>
@@ -9702,11 +9715,6 @@ Low profile connectors, straight&lt;p&gt;
 <wire x1="71.12" y1="20.32" x2="76.2" y2="20.32" width="0.1524" layer="91"/>
 <label x="71.12" y="20.32" size="1.778" layer="95"/>
 <pinref part="U10" gate="G$1" pin="4_P3.0"/>
-</segment>
-<segment>
-<pinref part="U6" gate="G$1" pin="CS"/>
-<wire x1="-40.64" y1="2.54" x2="-35.56" y2="2.54" width="0.1524" layer="91"/>
-<label x="-40.64" y="2.54" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="GYR_DR" class="0">
