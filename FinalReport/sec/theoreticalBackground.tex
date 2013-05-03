@@ -1,16 +1,14 @@
 \section{Theoretical Background}
-\todo[inline]{In Progres...}
+
+Wave breaking is a complex phenomenon that has been thoroughly studied in the field of oceanography and fluid mechanics\footnote{This section is based on the authors' interpretation of the unpublished thesis of Andre Amador, one of the researchers working on the project titled ``Lagrangian observations of turbulence in breaking
+surface waves".  The authors have abstained from citing his unpublished work, but would like to give credit to him for the ideas discussed in this section}.  However, there are few studies that focus on the turbulence formed on the surf zone, a phenomenon that is difficult to replicate in a laboratory.  The research project titled ``Lagrangian observations of turbulence in breaking
+surface waves" aims to study this phenomenon.  Some of the reasons to research this area include understanding the intensity of energy dissipated, the mechanics behind sediment transport, erosion, the diffusion of organisms and contaminants in the surf zone, among many others.  Being a fundamental problem for fluid mechanics, the observations and results from this projects might have more applications than those currently envisioned by the researchers.
+
 In fluid mechanics, there are two ways to describe flow: Eulerian and Lagrangian.  The Eulerian approach describes what is happening at a given location for a given time, whereas the Lagrangian approach describes the history of the particle exactly \cite{Granger1985}.  Looking at these two terms from a sensors point of view, an Eulerian sensor would be at a fixed position recording data over time, whereas a Lagrangian sensor would move with the particles of the fluid while recording data.  It is easy to see that for the study of wave breaking phenomena a Lagrangian sensor would be preferable, as the path of the waves are unpredictable and an initial location cannot be determined before the event occurs.
 
-The drifters are to be released within breaking waves to measure important variables in this process.
-%The objective of taking measurements from the IMU is to re-create the sensor's trajectory via dead reckoning.  Mention Ineratial Navigation systems and dead reckoning.
+Because they are intended to measure important variables in the wave breaking process, the Lagrangian sensor must have a geometry different than traditional drifters.  For this particular application, a spherical drifter is needed, so that it can flow with the water just as a sediment particle would.  It was determined in \cite{Canals2012} that the sphere diameter to wave height ratio should be minimized, which is why a spherical 7.5 cm diameter capsule was assembled, a size that permits the necessary components to reside within a plastic casing. The drifters are to be released within breaking waves to measure essential variables that are related to the wave breaking process in an interest to revolutionize the way this phenomenon is studied \cite{Canals2012}.  These variables include acceleration, rotation and orientation data.
 
-It was determined in \cite{Canals2012} that the sphere diameter to wave height ratio should be minimize, which is why a spherical 7.5 cm diameter capsule was assembled.
+By taking measurements of the drifter's acceleration, rotation and orientation, the researchers hope to recreate the drifters trajectory via dead reckoning.  Dead reckoning consists of calculating the displacement from a previous known position by using the integral of measured velocity and information on the direction in which the object is headed \cite{Jirawimut2001}, which can be determined by the rotation and orientation information.  The velocity can be found by integrating the measurements of acceleration already taken.  Doing this for all the data points gathered while the drifter is in motion will yield the position of the drifter across time, from which the trajectory can be reconstructed.  Since the drifters follow the flow of water, the trajectory of the drifters will give them the trajectory taken by the flow of water.  This will allow them to visualize the currents and vortices formed after a wave breaks.
 
-\lipsum[1]
+The data required to recreate the trajectory of the drifters via dead reckoning can be captured by an accelerometer, a gyroscope and a magnetometer.  Together, these three sensors are also known as a nine degree-of-freedom inertial measurement  unit.  These three sensors, together with the microcontroller (MCU), are the main components of the drifters presented in this work.  The design and implementation was done around the sensors, as these were selected first in order to make sure that they met the researcher's requirements.
 
-\lipsum[1]
-
-\lipsum[1]
-
-\lipsum[1]
