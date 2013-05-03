@@ -1,0 +1,16 @@
+\section{Software Reliability and Professional Component}
+
+\subsection{Design Criteria}
+As previously mentioned, the system was designed based on three main criteria: Power and Energy Consumption, Sustainability and Durability, and Data Integrity.  Several decisions were made in the design process to accommodate for these three criteria.  A discussion of how these criteria were addressed from a software perspective follows.
+
+\subsubsection{Power and Energy Consumption}
+In order to minimize energy consumption, the software was written to be interrupt driven.  Whenever the microprocessor is idle or is not performing a time-critical task, it is sent into one of the available power modes.  This dramatically lowers the current drawn from the power supply, which in turn extends the battery life.
+
+\subsubsection{Sustainability and Durability}
+From a purely software perspective, there is little that can be done to address the sustainability and durability criterion since the software is not capable of changing the physical aspects of the system.
+
+\subsubsection{Data Integrity}
+Currently, the only measure for addressing this criterion in the software is configuring the MCU's analog-to-digital converter to oversample the output of the accelerometer and take an average of these samples so as to create some type of filter for noise.  Since noise is a random phenomenon, sampling the accelerometer output once for a single data point could lead to a noisy measurement.  These chances are reduced when an average of 16-32 samples are taken as a single data point.
+
+\subsection{Limitations}
+Due to the time constraints imposed on the project, at the time this work was published, one of the biggest limitations in terms of software is the inability to calibrate the sensors without having to re-compile the code.  The effect of sensor calibration is seen when the raw data obtained from the sensors is converted into real data with physical meaning.  For each measurement, a minimum of scaling and offset factors should be included and are currently not present.  This has also been recommended as a possible extension of the software in Section~\ref{sec:futureWork}. 
