@@ -46,9 +46,6 @@ The reason why a 12MHz crystal was chosen is because the USB-to-SD card reader n
 \subsection{Point-to-point communication}
 This section outlines the minimum requirements for timing signals of the devices connected through GPIO. Table~\ref{tab:timeReqs} shows the timing requirements for the components. These timing signals do not include forms of serial communication, such as UART, SPI and I$^2$C. If a device requires a specific setup or hold time, the solution would be to set up a timer and count the specific number of clock ticks that the device requires. 
 
-
-%TODO
-\todo[inline]{need to update to add missing signals and remove the ones not being used}
 \begin{center}
     \begin{longtable}{|c|p{3in}|}
     \caption{Signal Timing Requirements of Components  \label{tab:timeReqs}} \\

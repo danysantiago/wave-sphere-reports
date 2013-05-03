@@ -1,4 +1,7 @@
 \section{Software Organization}
-\todo[inline]{Finish}
-\subsection{Drifters}
-\subsection{Base Station}
+The software in the system is composed of two parts: the software embedded in the drifters and the application GUI in the base station.  A description of how the software is organized follows.
+
+The drifters contain the embedded software which the MCU runs.  It is developed in C language and is the same for all drifters.  The GUI that resides on the base station was developed in Java and libraries were used to establish serial communication with the Xbee.
+
+In order for the base station to manage multiple drifters, a unique ID is given to each of them.  A protocol not dissimilar to I$^2$C was implemented in order to manage the communication between the spheres: the Base Station acts as a master and the drifters act as the slaves.  Whenever the base station needs to write or read data from the drifters, it issues a command by first sending the address of the drifter and then sending the command to be interpreted by the drifter.  When writing data to the drifters, only the command is sent, since writing data in this case means sending a single command to change the operating mode of the drifter.  When reading data, the address and command of the drifter from which it is intended to read are broadcasted.  Once the drifter has received its own address, it takes control of the communication with the base station and begins transmitting the requested data.
+

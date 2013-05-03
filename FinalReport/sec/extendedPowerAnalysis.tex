@@ -5,7 +5,6 @@ This section contains a more detailed explanation of how the battery life was es
 \end{customAppendixPage}
 \renewcommand*{\thepage}{\thesection-\arabic{page}}
 
-\todo[inline]{Add Level Shifters and recalculate power.  See if we can find a chart of Charge vs Voltage to determine the lower level of available charge to get a more real estimate.  Should re-check MCU pins}
 \subsection{Battery Life Estimate}
 In order to estimate the battery life, the average supply current was determined by using a weighted average based on the fraction of time each component is active.  The weighted average formula used was: $I_{avg} = \alpha * I_{active} + (1 - \alpha) * I_{LPM}$, where $\alpha$ is the activity factor or the fraction of time the component is active.  The following assumptions were made when determining the activity factor.
 

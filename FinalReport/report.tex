@@ -8,6 +8,8 @@
 \usepackage{wrapfig}
 \usepackage{amsmath}
 \usepackage{todonotes}
+\usepackage{longtable} 
+\usepackage{lscape}
 \definecolor{Gray}{gray}{0.9}
 \newcommand{\swpaf}{\vspace{-0.45cm}\end{itemize}\\ \hline \multicolumn{1}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
 \newcommand{\swmyth}[1] {\rowcolor{Gray} #1 \\ \hline \vspace{-0.75cm}\begin{itemize}}
@@ -39,7 +41,7 @@
 \input{sec/blockDiagram} %Done
 \input{sec/powerAnalysis} %Done
 \input{sec/timingAnalysis}
-\input{sec/memoryUsage}
+\input{sec/memoryUsage} %Done
 \input{sec/hwReliability} %Done
 \input{sec/hwLevelOfCompletion} %Done
 
@@ -58,12 +60,12 @@
 \appendix
 \addappheadtotoc
 
-%\include{sec/systemSpecs}
+\include{sec/systemSpecs}
 \include{sec/usersGuide} %Done
 \include{sec/schematics} %Done
-\include{sec/componentLayout}
+\include{sec/componentLayout} %Done
 \include{sec/extendedPowerAnalysis} %Done
-%\include{sec/bom}
-\include{sec/workDistribution}
+\include{sec/bom}
+\include{sec/workDistribution} %Done
 
 \end{document}
