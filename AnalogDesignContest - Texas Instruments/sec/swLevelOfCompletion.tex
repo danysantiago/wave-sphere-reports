@@ -1,0 +1,59 @@
+\section{Software Level of Completion}
+Table~\ref{tab:swLoC} shows a list of the system features and software functionality. The software features and expected functionality have been divided by the operating mode to which they belong to.  All the operating modes are presented and discussed in Section~\ref{sec:operatingChart}.
+\begin{center}
+ \begin{longtable}{|p{0.97\textwidth}|}
+    \caption{List of System Features and Functionality \label{tab:swLoC}} \\
+     \hline
+ \endfirsthead   
+         \hline
+ \endhead
+    
+    \endfoot 
+    %Note: \swmyth{Value} = my table header.  It contains everything needed to 
+    %Note: \swpaf = Professors annotation field, set at end of each table row it will end the row 
+    %for you and insert everything needed to start the next row
+       
+		\swmyth{Main}
+		\vspace{0.35cm} %hack for first row which for some reason doesn't work
+		\item Power on System with RF module
+		\item Power on Xbee and connect to base station
+		\vspace{-0.35cm} %hack for first row which for some reason doesn't work
+		\swpaf
+		
+		\swmyth{Status Mode}
+		\item Display SD Card Free Space on GUI
+		\item Display Battery Level on GUI
+		\item Display Drifter ID on GUI
+		\item Allow users to switch between any of the other operating modes
+		\swpaf
+		
+		\swmyth{Diagnostic Mode}
+		\item Display raw sensor measurements on GUI
+		\item Display GPS location on GUI if available
+		\item Display Battery Level on GUI
+%		\item Display XBee Signal Strength
+		\swpaf
+		
+		\swmyth{Sampling Mode}
+		\item Collect Data from three sensors: Accelerometer, Magnetometer and Gyroscope
+		\item Sample at a frequency of 250Hz for a sampling window of 30 seconds
+		\item Write Data to SD card
+		\swpaf
+
+		\swmyth{Location Mode}
+		\item Get data from GPS and send it through XBee
+		\item Display received location data on GUI until the user exits this mode.
+		\swpaf
+		
+		\swmyth{Retrieval Mode}
+		\item Read data from SD card and display on GUI
+		\item Wirelessly transfer data from SD card to the GUI through the XBee
+		\item Erase data from SD card.
+		\swpaf
+		
+		\swmyth{Shut Down Mode}
+		\item Shut down all components and send MCU to low power mode
+		\swpaf
+
+        \end{longtable}%
+\end{center}

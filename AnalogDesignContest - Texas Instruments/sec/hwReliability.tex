@@ -1,0 +1,17 @@
+\section{Hardware Reliability and Professional Component}
+
+\subsection{Design Criteria}
+The system was designed based on three main criteria: Power and Energy Consumption, Sustainability and Durability, and Data Integrity.  Several decisions were made in the design process to accommodate for these three criteria.  A discussion of how these criteria were addressed from a hardware perspective follows.
+
+\subsubsection{Power and Energy Consumption}
+In order to minimize energy consumption, all of the selected ICs have a low-power mode.  The only component that does not have a low power mode is the accelerometer, however a power switch was introduced between the power source and the IC which can be controlled via one of the MCU's GPIO pins.  This allows for the implementation of a low-power mode for this component.
+
+Another consideration made was in the battery selection.  The selected battery has a voltage rating of 3.7V, which is close to the desired power supply voltage of 3.3V.  Since the system uses a linear regulator to regulate the power supply at 3.3V, the closer the gap between the battery voltage and the desired power supply, the less energy lost in the regulator as heat.
+
+\subsubsection{Sustainability and Durability}
+Because the drifters are meant to be used in the water, it is important that the plastic casing surrounding the electronic components be durable and able to withstand the large accelerations encountered in the wave-breaking process.  At the same time, the internal components must be secured to the casing so that they do not move around inside the plastic casing.
+
+There is currently a Mechanical Engineering student in charge of designing a new plastic casing for the spheres which will later be fabricated for the ongoing NSF funded research project.  However, in order to contribute to this criteria, the designed Printed Circuit Boards (PCBs) have holes to allow spacers and screws to fasten the PCB to the casing.  This will prevent the PCB from being lose and rattling around inside the casing.
+
+\subsubsection{Data Integrity}
+From a purely hardware perspective, special care was taken when designing the PCB to address this criterion.  Antennas were placed according to their specification, which should minimize the chances of data corruption when it is being transmitted wirelessly.  In addition, the accelerometer, which is the only analog sensor, was isolated from the rest of the components by placing it on a different ground plane.  This reduces the interference that the digital lines will have on the analog lines, which in turn reduces chances of obtaining unreliable measurements from this sensor.

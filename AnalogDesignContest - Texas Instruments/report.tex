@@ -1,0 +1,73 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{res/reportStyle}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{color,colortbl}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+%\usepackage{todonotes}
+\usepackage{longtable} 
+\usepackage{lscape}
+\definecolor{Gray}{gray}{0.9}
+\newcommand{\swpaf}{\vspace{-0.45cm}\end{itemize}\\ \hline \multicolumn{1}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
+\newcommand{\swmyth}[1] {\rowcolor{Gray} #1 \\ \hline \vspace{-0.75cm}\begin{itemize}}
+
+\newcommand{\hwpaf}{%\vspace{-0.45cm}\end{itemize}\\ 
+\hline \multicolumn{2}{|l|}{Professor Annotations} \\ [0.6in] \hline} 
+\newcommand{\hwmyth}[1] {\multicolumn{3}{|l|}{\cellcolor{Gray} #1} \\ \hline \vspace{-0.75cm}\begin{itemize}}
+\begin{document}
+
+\input{res/titlePage.tex}
+\pagenumbering{roman}
+
+
+
+\input{sec/abstract} %Done
+
+\tableofcontents \newpage
+\listoffigures \newpage
+\listoftables \newpage
+\pagenumbering{arabic}
+
+\input{sec/introduction} %Done
+\input{sec/theoreticalBackground}
+
+\input{sec/systemOverview} %Done
+\input{sec/blockDiagram} %Done
+\input{sec/powerAnalysis} %Done
+\input{sec/timingAnalysis}
+\input{sec/memoryUsage} %Done
+\input{sec/hwReliability} %Done
+%\input{sec/hwLevelOfCompletion} %Done
+
+
+\input{sec/operatingChart} %Done
+\input{sec/swOrganization}
+\input{sec/swReliability} %Done
+%\input{sec/swLevelOfCompletion} %Done
+
+\input{sec/limitations}
+\input{sec/conclusion} %Done
+\input{sec/futureWork} %Done
+\input{sec/acknowledgements}
+
+\bibliographystyle{ieeetr}
+\bibliography{references}
+
+\appendix
+\addappheadtotoc
+
+
+
+%\include{sec/systemSpecs}
+\include{sec/usersGuide} %Done
+\include{sec/schematics} %Done
+\include{sec/componentLayout} %Done
+\include{sec/extendedPowerAnalysis} %Done
+%\include{sec/flowcharts}
+\include{sec/bom}
+%\include{sec/workDistribution} %Done
+
+\end{document}

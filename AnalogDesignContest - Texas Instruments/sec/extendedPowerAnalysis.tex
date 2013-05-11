@@ -1,0 +1,159 @@
+\begin{customAppendixPage}{Extended Power Analysis}
+\label{sec:extendedPowerAnalysis}
+This section contains a more detailed explanation of how the battery life was estimated.  It includes the assumptions made to generate the activity factors.  In addition, it includes a thorough description of the calculations made in the thermal analysis.
+
+\end{customAppendixPage}
+\renewcommand*{\thepage}{\thesection-\arabic{page}}
+
+\subsection{Battery Life Estimate}
+In order to estimate the battery life, the average supply current was determined by using a weighted average based on the fraction of time each component is active.  The weighted average formula used was: $I_{avg} = \alpha * I_{active} + (1 - \alpha) * I_{LPM}$, where $\alpha$ is the activity factor or the fraction of time the component is active.  The following assumptions were made when determining the activity factor.
+
+\begin{itemize}
+\item The drifters will spend 10 minutes in ``Locate Mode" before they are retrieved from the water.
+\item The drifters will spend 30 seconds in sampling mode.
+\item The drifters will spend 3 minutes in stand-by mode before they are deployed.
+\item The drifters will spend about 10 seconds transferring a single data file.  The following assumptions were made to determine this time:
+	\begin{itemize}
+		\item File Size: 200 kB * 8 = 16,000 kbits.
+		\item 80\% of XBee maximum Speed: 250 kbps * 80\% = 200 kbps.
+		\item 16,000 kbits / 200 kbps = 8 seconds, which can be rounded up to 10 seconds.
+	\end{itemize}
+\end{itemize}
+
+
+Table \ref{tab:batLife} shows a list of the components along with their active and low power mode supply current, determined activity factor, and weighted average supply current.  It also shows the total average current consumption of the system which was determined to be  around 70 mA.  This means that a chosen 500 mAh battery will last for about 7.23 hours.  Based on the current assumptions, a single throw or experiment will last for about 13.66 minutes, which means that the drifters will be able to perform at least 30 experiment trials under the current assumptions.
+\begin{center}
+ \begin{longtable}{|c|c|c|c|c|}
+    \caption{Activity Factors Used to Estimate Battery Life  \label{tab:batLife}} \\
+     \hline
+    \rowcolor{Gray}
+    Component & $I_{Active}$ ($\mu$A) & $I_{LPM}$ ($\mu$A) &  $\alpha$ & $I_{AVG}$ ($\mu$A) \\
+    \hline \hline \endfirsthead
+    
+         \hline
+   \rowcolor{Gray}
+    Component & $I_{Active}$ ($\mu$A) & $I_{LPM}$ ($\mu$A) &  $\alpha$ & $I_{AVG}$ ($\mu$A) \\
+    \hline \hline \endhead
+    
+    \endfoot
+
+    \multicolumn{5}{|c|}{\cellcolor{Gray}Connected To LDO} \\ \hline
+    MSP430FR5969 & 1600  & 0.5   & 78.05\% & 1248.91 \\ \hline
+    3-Axis Accelerometer & 300   & 0     & 3.66\% & 10.98 \\ \hline
+    Magnetometer & 110   & 1     & 3.66\% & 4.9894 \\ \hline
+    XBee  & 45000 & 0.5   & 96.34\% & 43353.02 \\ \hline
+    RF Wakeup & 2.7   & 0.4   & 0.00\% & 0.4 \\ \hline
+    Gyroscope & 6100  & 5     & 3.66\% & 228.077 \\ \hline
+    GPS   & 26140 & 5     & 73.17\% & 19127.98 \\ \hline
+    SD Card & 100000 & 10    & 4.88\% & 4889.512 \\ \hline
+    Power switch & 1     & 0.3   & 3.66\% & 0.32562 \\ \hline
+    SD to USB & 37    & 1     & 100.00\% & 37 \\ \hline
+    \multicolumn{5}{|c|}{\cellcolor{Gray}Connected Directly to Battery} \\ \hline
+    LDO   & 65    & 1     & 100.00\% & 65 \\ \hline
+    Battery Charger & 1500  & 6.5   & 0.00\% & 6.5 \\ \hline
+    Battery Meter & 103   & 4     & 100.00\% & 103 \\ \hline \hline
+    Total & 180958.7 & 35.2  &    -   & 69075.69 \\ \hline \hline
+    \cellcolor{Gray}Battery Capacity &   500 mAh    &      \multicolumn{2}{c|}{\cellcolor{Gray}Hours of Use per charge} & 7.238436 \\ \hline
+    \cellcolor{Gray}Est. time per throw (min) & 13.66 mins  &    \multicolumn{2}{c|}{\cellcolor{Gray}Throws per charge} & 31.7785 \\ \hline
+    \end{longtable}%
+\end{center}%
+
+\subsection{Thermal Analysis}
+Performing a thermal analysis on the system will reveal whether the operating temperature of the individual ICs is below their maximum rating.  In order to perform this analysis, the junction temperature $T_J$ will be calculated for the MCU and the power management ICs.  The junction temperature is given by \cite[419]{Jimenez2013}:
+
+\[T_J = T_A + \theta_{JA} \cdot P_{diss}\]
+
+where $T_J$ is the estimated junction temperature, $T_A$ is the ambient temperature (taken here to be $27^\circ C$), $\theta_{JA}$ is the junction-to-ambient thermal resistance and $P_{diss}$ is the estimated power consumption of the device. 
+
+This formula is applied throughout the following sections to determine whether the MCU and the power ICs will be operating at a safe temperature or if they require additional heat dissipation mechanisms such as heat syncs, fans, etc.
+
+\subsubsection{Microcontroller}
+In order to estimate the average operating junction temperature for the MCU the power dissipated by the IC will first be calculated.  The following formula, which was taken from \cite[419]{Jimenez2013}, will be used:
+
+\[P_{diss} = V_{DD} \cdot \left(I_{DD(avg)} + \sum_{allpins} |I_{IO(avg)}| \right)\]
+
+Although no information is available for the $\theta_{JA}$ of the MSP430FR5969, since this value depends on the package and the area exposed to the air, a device with the same package (48-pin QFN), the MSP430F5510, was found to have $\theta_{JA} = 28.6^\circ C/W$ and this value was instead used.  In the same manner, although no information on the IO currents is available, the ones for the MSP430F5510 will be used instead.
+
+In full drive mode, the MSP430F5510 can output upto 45mA through its IO pins while still maintaining a valid $V_{OL}$.    Table \ref{tab:ioCurrents} shows the assumed IO currents for each components.
+\begin{table}[H]
+  \centering
+  \caption{Worst Case I/O current for microcontroller pins}
+    \begin{tabular}{|c|c|c|c|}
+     \hline
+     \rowcolor{Gray}
+    Pin & $I_{DD(Active)}$ ($\mu$A) & Qty & Total Current ($\mu$A)\\
+     \hline \hline
+    SPI & 100  & 3 & 300 \\ \hline
+   	$I^2C$ & 10 & 2 & 20  \\ \hline
+    UART & 1000 & 2 & 2000 \\ \hline
+    GPIO  & 1000 & 21 & 21000\\ \hline \hline
+    \multicolumn{3}{|r|}{Total} & 23320 \\ \hline 
+    \end{tabular}%
+  \label{tab:ioCurrents}%
+\end{table}%
+Assuming an IO current of 23.32mA and an average supply current of 1.6mA, the total power dissipation can then be calculated to be:
+\[P_{diss} = V_{DD} \cdot \left(1.6m + 23.32m \right)\]
+\[\boxed{P_{diss} = 82.24mW}\]
+
+Using $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
+
+\[T_J = 27 + 26.8 \cdot 0.08224 \]
+\[\boxed{T_J = 29.20 ^\circ C}\]
+
+The datasheet states that the maximum junction temperature is $95^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
+
+
+\subsubsection{Low-Dropout Regulator}
+The datasheet for the TPS73501 contains a section on power dissipation and provides the following formula for calculating the power dissipation across the device:
+
+\[P_{diss} = \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT}\]
+
+The voltage provided by the battery charger circuit is 3.925 V and the required output voltage is 3.3 V.  The estimated output current required is 180.96 mA.  In order to leave a margin of error, a rounded value of 200 mA will be used in this calculation.  Thus, the power dissipated by the device is given by:
+
+\[P_{diss} = \left(3.925 - 3.3\right)\cdot 200m\]
+\[\boxed{P_{diss} = 125mW = 0.125W}\]
+
+Since for this device, $\theta_{JA} = 47.8^\circ C/W$, the total junction temperature is then given by:
+
+\[T_J = 27 + 47.8 \cdot 0.125 \]
+\[\boxed{T_J = 32.98 ^\circ C}\]
+
+The datasheet states that the maximum junction temperature is $150^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
+
+
+\subsubsection{Battery Charger}
+
+The datasheet for the BQ24072 provides the following formula for estimating the power dissipation across the device.
+\[P_{diss} = \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT} + \left(V_{OUT} - V_{BAT}\right)\cdot I_{BAT}\]
+
+The output voltage of the device is 5.5 V, while the input voltage is 5 V as dictated by the USB standard.  The output current can be estimated to be 50mA by taking into account the two LEDs connected to this pin (at about 20mA per LED) and the LDO input (46 $\mu$A) and rounding up to leave a margin for safety.  The circuit was designed for a battery voltage of 3.7 V and a current of 800 mA.
+
+\[P_{diss} = \left(5 - 3.925\right)\cdot 50m + \left(3.925 - 3.7\right)\cdot 500m\]
+\[\boxed{P_{diss} = 166 mW}\]
+
+Since for this device, $\theta_{JA} = 39.47^\circ C/W$, the total junction temperature is then given by:
+
+\[T_J = 27 + 39.47 \cdot 0.166 \]
+\[\boxed{T_J = 33.55 ^\circ C}\]
+
+The datasheet states that the maximum junction temperature is $125^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
+
+
+\subsubsection{Battery Meter}
+Although the datasheet for the BQ27410 does not provide a direct formula for power dissipation and because the battery meter has an internal LDO, the formula used for the MCU IO pins will be combined with the power dissipation formula of the LDO to obtain a more robust estimate for the power dissipated.  
+
+\[P_{diss} = V_{DD} \cdot \left(\sum_{allpins} |I_{IO(avg)}| \right) + \left(V_{IN} - V_{OUT}\right)\cdot I_{OUT}\]
+
+The IO pin output current for this device is between 0.5 and 1 mA.  1 mA will be used for the two $I^2C$ pins, which gives a total IO current of 2 mA.  The maximum supply current is 103 $\mu$A and this will be used instead of the average supply current to leave a margin of safety.  The input voltage is 5.5 V and the regulated output voltage is 2.5 V.
+
+\[P_{diss} = 2.5 \cdot \left(2m \right) + \left(3.7 - 2.5\right)\cdot 0.103m\]
+
+\[\boxed{P_{diss} = 5.12 mW}\]
+
+Since for this device, $\theta_{JA} = 64.17^\circ C/W$, the total junction temperature is then given by:
+
+\[T_J = 27 + 64.1 \cdot 0.00512 \]
+\[\boxed{T_J = 27.33 ^\circ C}\]
+
+The datasheet states that the maximum junction temperature is $100^\circ C$, which means that in this application, the device is well under the maximum operating temperature rating and no additional heat dissipation mechanism is needed.
+

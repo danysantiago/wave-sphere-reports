@@ -1,0 +1,91 @@
+\section{Power Analysis}
+The power analysis consists of four main parts: logic compatibility, driving capability, power supply design and battery life estimate. The purpose of this analysis is to ensure that power requirements for each component are satisfied in order to guarantee their proper functionality. A supporting thermal analysis is performed on selected ICs.
+
+\subsection{Logic Compatibility}
+
+Table \ref{tab:logicCompAndDriving} shows all the digital components in the system along with their input and output digital voltage levels.  Only two digital components communicate with each other: the SD Card to USB converter IC and the SD Card itself.  It is easy to see from Table \ref{tab:logicCompAndDriving} that the logic voltage levels between these two devices are compatible.  In addition to this, all components communicate with the MCU.  It can also be seen that all the devices are logically compatible with the MCU except for the battery gauge, which communicates with the MCU through an $I^2C$ interface and has a $V_{DD}$ of 2.5V.  In order to make them compatible, a bi-directional logic level shifter from Texas Instruments was used and can be found in the schematic.  It can be seen in the table that by using the aforementioned level shifter, communication between the battery gauge and the MCU is now possible.
+
+
+\begin{table}[ht]
+\centering
+\caption{Component Logic Levels and I/O Currents  \label{tab:logicCompAndDriving}}
+    \begin{tabular}{|p{1.2in}|c|c|c|c|c|c|c|c|}
+    
+     \hline
+    \rowcolor{Gray}
+    Component & $V_{DD}$   & $V_{IH}$   & $V_{IL}$   & $V_{OH}$   & $V_{OL}$   & $I_{OUT}$ & $I_{IN}$ & $I_{LEAK}$\\
+
+    MSP430FR5969\footnote{Values used are for the MSP430FR572x as they are not available for the selected microprocessor.} & 3.3   & 2.1   & 0.75  & 3.2   & 0.2   & 45 mA\footnote{In full-drive mode} & 50 nA & 50 nA \\ \hline
+ 
+    Magnetometer\footnote{Currents obtained from \cite{i2cStandard}} & 3.3   & 2.64  & 0.66  & 3.3   & 0    & 3 mA & 10 $\mu$A & 10 $\mu$A  \\ \hline
+
+    XBee  & 3.3   & 2.64   & 0.66   & 2.706   & 0.594  & 4 mA & 0.5 $\mu$A & 0.5 $\mu$A \\ \hline
+
+    RF Wakeup & 3.3   & 1.914 & 0.99  & 2.9   & 0.4  & 21 mA & 100 nA & 100 nA \\ \hline
+
+    Gyroscope & 3.3   & 2.64  & 0.66  & 2.64  & 0.66  & 100 $\mu$A & 10 $\mu$A & 10 $\mu$A \\ \hline
+
+    GPS   & 3.3   & 2     & 0.8   & 2.4   & 0.4 &  8 mA & 10 $\mu$A &  10 $\mu$A  \\ \hline
+
+    Battery Gauge\footnote{Input and output currents obtained from \cite{i2cStandard}} & 2.5   & 1.2   & 0.6   & 2 & 0.4  & 3 mA & 10 $\mu$A & 0.3 $\mu$A \\ \hline
+
+    SD Card\footnote{Voltages obtained from \cite{ibrahim2010sd}} & 3.3 & 2.06   & 0.83   & 2.48   & 0.41 &100 $\mu$A & 10 $\mu$A &  10 $\mu$A\\ \hline
+
+    Power Switch & 3.3   & 2.2   & 1.1   & 3.3   & 0    & 10 mA & 0 mA & 0.3 $\mu$A\\ \hline
+
+    SD Card to USB Converter & 3.3 & 2.06   & 0.83   & 2.48   & 0.41   & 100 $\mu$A & 2 $\mu$A & 1 $\mu$A \\ \hline	
+    Level Shifter\footnote{Values for $V_{OH}$ and $V_{OL}$ taken at 100 $\mu$A since the input and output current of the Battery Gauge does not exceed 10 $\mu$A.}& 2.5 & 1.7   & 0.7   & 2.5   & 0   & 100 $\mu$A & 20 $\mu$A & 10 $\mu$A \\ \hline	
+    \end{tabular}%
+
+\end{table}%
+  
+\subsection{Driving Capability}
+
+In order to ensure that no component draws more current than the one its driver can provide, a weakest driver analysis should be performed. Table~\ref{tab:logicCompAndDriving} shows a list of the available currents found in the data sheets and other sources. The components and their connections are shown in the block diagram depicted in Figure~\ref{fig:drifterBlockDiagram}.
+
+Since $I^2C$ is a standard, there would be no problems if the level shifter was not present.  However, since this component is the weakest driver, the analysis must be performed.  The output current of this component is 100 $\mu$A in order to maintain the voltage levels specified in Table~\ref{tab:logicCompAndDriving}.  It can be seen that this current is greater than the sum of input currents of the components connected to the bus: 10 $\mu$A for the Gyroscope, 10 $\mu$A for the Magnetometer and 50 nA for the MCU.
+
+Since the components connected through UART and Software UART are point to point connections and since the MCU has such a low input and leakage current, the Xbee and GPS modules do not have a problem driving the MCU.  Finally, for the SPI Bus, the weakest driver is the SD Card to USB Converter with an output current of 2 $\mu$A.  It can be seen from Table~\ref{tab:logicCompAndDriving}, that this current is greater than the sum of input currents for the other components: 100 nA for the RF wakeup and 50nA for the MCU.
+
+With this analysis, one can conclude that all ICs can drive their respective loads.
+
+\subsection{Power Supply Design}
+In order to design the power supply that is used by the system, the worst case quiescent current of each component was taken into account.  Although not all components operate at the same time, it is ensured that the system will continue to function properly for the worst possible case by performing the analysis in this manner.  To ensure proper operation of the system, the Low-Dropout Regulator (LDO) must supply enough current for the entire system.  Table \ref{tab:powerSupply} shows a list of components along with the worst case quiescent current of each of them.  By adding all the current, a maximum current consumption of 181 mA was determined.  The LDO is rated for a maximum output of 500 mA, which is well above the determined usage.  In order to complete the power supply circuit, a USB Battery Charger and a Battery Meter were added as well. Note that since the level shifters are powered by the 2.5V regulated output of the Battery Meter, they have not been included in these calculations.
+\begin{center}
+    \begin{longtable}{|c|c|}
+    \caption{Worst Case Quiescent Currents for components  \label{tab:powerSupply}} \\
+     \hline
+    \rowcolor{Gray}
+   Component & $I_{DD(Active)}$ ($\mu$A) \\
+    \hline \hline \endfirsthead
+    
+         \hline
+    \rowcolor{Gray}
+  Component & $I_{DD(Active)}$ ($\mu$A) \\
+    \hline \hline \endhead
+    
+    \endfoot
+
+    MSP430FR5969 & 1600   \\ \hline
+    3-Axis Accelerometer & 300  \\ \hline
+    Magnetometer & 110  \\ \hline
+    XBee  & 45000 \\ \hline
+    RF Wakeup & 2.7   \\ \hline
+    Gyroscope & 6100  \\ \hline
+    GPS   & 26140 \\ \hline
+    SD Card & 100000  \\ \hline
+    Power switch & 1  \\ \hline
+    SD to USB & 37   \\ \hline
+    LDO   & 65  \\ \hline
+    Battery Charger & 1500  \\ \hline
+    Battery Meter & 103   \\ \hline \hline
+    Total & 180958.7  \\ \hline     
+    \end{longtable}%
+
+\end{center}%
+  \vspace{-2cm}
+
+\subsection{Thermal Analysis}
+A thorough thermal analysis was performed on the MCU and all the power management ICs to determine whether they would exceed the thermal limits of their package under regular operation in our system.  The expected operating junction temperature was calculated using the junction-to-ambient thermal resistance and the power dissipated by each IC.  It was determined that no additional heat dissipation technique as needed to guarantee the proper operation of the ICs since all the calculated junction temperatures were well below the maximum operating junction temperature specified in the manufacturer's datasheets.  The thorough and detailed analysis can be found in Appendix \ref{sec:extendedPowerAnalysis}.
+
+
